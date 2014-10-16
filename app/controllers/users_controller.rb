@@ -18,6 +18,11 @@ class UsersController < ApplicationController
   def show
     @user = User.find(params[:id])
     @entries = @user.entries
+    if @user.kira == true
+      @tmp_alias = "kira"
+    else
+      @tmp_alias = @user.alias
+    end
   end
 
   private

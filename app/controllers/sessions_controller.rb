@@ -6,7 +6,7 @@ class SessionsController < ApplicationController
     user = User.authenticate(params[:session][:alias], params[:session][:password])
     if user.nil?
       flash[:login_error] = "Couldn't find a user with those credentials"
-      redirect_to new_sessions_path
+      redirect_to new_session_path
     else
       sign_in user
       redirect_to user
