@@ -1,3 +1,45 @@
 // Place all the styles related to the Posts controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+  #header h1{
+    display: inline-block;
+  }
+    #header div a{
+      margin-top: 30px;
+      font-size: 1.2em;
+    }
+  #search{
+    margin-top: 40px;
+    margin-bottom: 40px;
+  }
+  .post{
+    margin-bottom: 40px;
+  }
+    .post div{
+      border: 2px solid #E6E6E6;
+      border-radius: 10px;
+    }
+      .post div div{
+        border: none;
+      }
+    .post_header .status{
+      font-size: 2.2em;
+    }
+      .post_header{
+        margin-top: 10px;
+      }
+        .post_header h3{
+          display: inline-block;
+        }
+        .post_header div, h4{
+          display:inline-block;
+        }
+        .joys{
+          font-size: 1.8em;
+        }
+      .post_title{
+        display: block;
+        margin-top: 10px;
+        margin-bottom: 10px;
+        font-size: 1.4em
+      }

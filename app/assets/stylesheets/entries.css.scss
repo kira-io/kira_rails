@@ -2,13 +2,14 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-#entry-new-header h3{
-  margin-top: 25px;
+#entry-new-header h2 a{
+  font-weight: normal;
 }
 
 #entry-new-header a {
   font-weight: 200;
   color: black;
+  margin-top: 25px;
 }
 
 #entry-new-content {

@@ -25,7 +25,7 @@
   <% @entries.each do |entry| %>
   <div class="row">
     <div id="user-entries" class="col-sm-8 col-sm-offset-2">
-      <p>10/03/2013 at 7:00 pm from California</p>
+      <p><%= entry.created_at.strftime("%b %d, %Y at %l:%M %P") %> from California</p>
       <p><%= entry.title %></p>
       <p><%= entry.content %></p>
     </div>
