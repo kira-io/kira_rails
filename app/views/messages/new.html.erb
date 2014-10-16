@@ -1,2 +1,31 @@
-<h1>Messages#new</h1>
-<p>Find me in app/views/messages/new.html.erb</p>
+<div id="user-show-header">
+  <div class="row">
+    <div class="col-sm-2">
+      <h2><a href="/users/<%= session[:user_id] %>"><%= @tmp_alias %></a></h2>
+    </div>
+    <div class="col-sm-2 col-sm-offset-6">
+      <h3><a href="/posts">browse</a></h3>
+    </div>
+    <div class="col-sm-2">
+      <h3><a href="/signout">logout</a></h3>
+    </div>
+  </div>
+</div>
+
+<div id="entry-textangular" class="row">
+  <div class="col-sm-8 col-sm-offset-2">
+    <p>textangular textangular textangular textangular textangular textangular textangular textangular textangular textangular </p>
+  </div>
+</div>
+
+<div id="entry-new-form" class="row">
+  <div class="col-sm-8 col-sm-offset-2">
+    <form action="/posts/<%= @post.id %>/messages" method="post">
+      <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+      <p>Message To: <%= @post.name %></p>
+      <p>
+        <textarea id="entry-new-content" name="post[content]"><%= @content %></textarea>
+      </p>
+      <input type="submit" value="Submit"> 
+    </form>
+  </div>

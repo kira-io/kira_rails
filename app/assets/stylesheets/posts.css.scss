@@ -43,3 +43,28 @@
         margin-bottom: 10px;
         font-size: 1.4em
       }
+  #header a{
+    margin-top: 30px;
+    font-size: 1.2em
+  }
+  #timer{
+    margin-top: 10px;
+    margin-bottom: 30px;
+  }
+  #post, #chat_room {
+    border: 2px solid #E6E6E6;;
+    border-radius: 10px
+  }
+  #post_header span{
+    font-size: 1.8em;
+  }
+  #post_header h3{
+    display: inline-block;
+  }
+  #chat_room{
+    padding: 10px;
+    margin-bottom: 10px;
+  }
+  input[type="submit"]{
+    margin-top: 10px;
+  }
