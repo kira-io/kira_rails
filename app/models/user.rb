@@ -7,6 +7,8 @@ class User < ActiveRecord::Base
 
   validates :alias, presence: true, length: { :maximum => 25 }
 
+  validates :email, format: { :with => email_regex }, uniqueness: { :case_sensitive => false }
+
   validates :password_confirmation, presence: true
   
   validates :password, presence: true, confirmation: true, length: { :within => 5..100 }
