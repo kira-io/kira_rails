@@ -5,8 +5,8 @@ class SessionsController < ApplicationController
   def create
     user = User.authenticate(params[:session][:alias], params[:session][:password])
     if user.nil?
-      flash[:login_error] = "Couldn't find a user with those credentials"
-      redirect_to new_session_path
+      flash[:login_error] = "Invalid alias/password combination"
+      redirect_to root_url
     else
       sign_in user
       redirect_to user
