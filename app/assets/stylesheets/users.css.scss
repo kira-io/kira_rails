@@ -2,11 +2,16 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-#user-show-header h3{
-  margin-top: 25px;
+@import 'sessions.css.scss';
+
+.description {
+  margin-top: 50px;
 }
 
-#user-show-header a {
-  font-weight: 200;
-  color: black;
+#terms_and_agreements {
+  margin-right: 10px;
+  display: inline-block;
+  p {
+    display: inline-block;
+  }
 }
