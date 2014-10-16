@@ -7,7 +7,7 @@ RSpec.describe SessionsController, :type => :controller do
     end
 
     it 'routes to #create' do
-      expect(post: '/session').to route_to(controller: 'sessions', action: 'create')
+      expect(post: '/sessions').to route_to(controller: 'sessions', action: 'create')
     end
 
     it 'routes to #destroy' do
