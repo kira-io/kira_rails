@@ -1,37 +1,40 @@
 <div class="row">
   <div class="col-sm-8 col-sm-offset-2">
     <div class="row">
-      <div class="col-sm-6 col-sm-offset-3">
+      <div id="landing_header" class="col-sm-6 col-sm-offset-3">
         <h1>kira</h1>
-        <h3>sign up</h3>
+        <h5>sign up</h5>
       </div>
     </div>
 
-    <div class="row">
-      <div class="col-sm-8 col-sm-offset-2">
-        <form action="/users" method="post">
-          <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
-          <p>
-            <label for="alias">alias</label>
-            <input class="pull-right" type="text" name="user[alias]">
-          </p>
-          <p>
-            <label for="password">password</label>
-            <input class="pull-right" type="password" name="user[password]">
-          </p>
-          <p>
-            <label for="password_confirmation">confirm password</label>
-            <input class="pull-right" type="password" name="user[password_confirmation]">
-          </p>
-          <input type="checkbox">terms & agreements
-          <input class="pull-right" type="submit" value="join">
-        </form>
-      </div>
+    <div id="login_form" class="col-sm-8 col-sm-offset-2">
+      <form action="/users" method="post">
+        <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+        <p>
+          <label for="alias">alias</label>
+          <input id="alias" type="text" name="user[alias]">
+        </p>
+        <p>
+          <label for="password">password</label>
+          <input id="password" type="password" name="user[password]">
+        </p>
+        <p>
+          <label for="password_confirmation">confirm password</label>
+          <input id="password_confirmation" type="password" name="user[password_confirmation]">
+        </p>
+        <div id="terms_and_agreements">
+          <input type="checkbox">
+          <p>terms &amp; agreements</p>
+        </div>
+        <input type="submit" value="join">
+      </form>
     </div>
 
     <div class="row">
-      <div class="col-sm-8 col-sm-offset-2">
-        <p>read diaries from all over ther world. all diary entries are available for 24 hours to the public then disappears. the diary entry is only available to the author afterwards</p>
+      <div class="description col-sm-8 col-sm-offset-2">
+        <p>Read diaries from all over the world.</p>
+        <p>All diary entries are available for 24 hours to the public then disappears.</p>
+        <p>The diary entry is only available to the author afterwards</p>
       </div>
     </div>
 

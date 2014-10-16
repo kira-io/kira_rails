@@ -6,16 +6,19 @@
         <h5>anonymous diaries</h5>
       </div>
     </div>
+    <% if flash[:login_error] %>
+      <p class='error'><%= flash[:login_error] %></p>
+    <% end %>
     <div id='login_form' class="col-sm-8 col-sm-offset-2">
       <form action="/sessions" method="post">
         <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
         <p>
           <label for="alias">alias</label>
-          <input type="text" name="session[alias]">
+          <input id="alias" type="text" name="session[alias]">
         </p>
         <p>
           <label for="password">password</label>
-          <input type="password" name="session[password]">
+          <input id="password" type="password" name="session[password]">
         </p>
         <p class='links'>
           <a href="/users/forgot_password">forgot your password?</a> <!-- need to figure out how to retrieve password from the specific user -->
