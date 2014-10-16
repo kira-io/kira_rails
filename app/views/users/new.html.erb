@@ -6,7 +6,11 @@
         <h5>sign up</h5>
       </div>
     </div>
-
+    <% if flash[:errors] %>
+      <% flash[:errors].each do |error| %>
+      <p class='error'><%= error %></p>
+      <% end %>
+    <% end %>
     <div id="login_form" class="col-sm-8 col-sm-offset-2">
       <form action="/users" method="post">
         <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
