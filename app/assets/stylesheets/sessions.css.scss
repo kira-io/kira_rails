@@ -2,34 +2,42 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-#session-header h1, #session-header h3 {
+#landing_header {
+  margin-bottom: 30px;
+  h1, h5 {
+    text-align: center;
+  }
+}
+
+#login_form {
   text-align: center;
-}
-#session-form {
-  margin-top: 20px;
-  padding-left: 10px;
-}
-
-#session-form label {
-  text-align: right;
-  width: 80px;
-  margin-right: 20px;
-}
-
-#session-form input[type="text"],#session-form input[type="password"] {
-  border-radius: 10px;
-  border-color: gray;
-  border-width: thin;
-}
-
-#session-form input[type="submit"] {
-  display: inline-block;
-  background-color: white;
-  border-radius: 10px;
-  border-width: thin;
-  padding: 0 8px;
-  border-color: gray;
-}
-#session-form a {
-  margin-left: 125px;
+  label {
+    text-align: right;
+    width: 80px;
+    margin-right: 30px;
+    margin-left: -25px;
+  }
+  input {
+    border-radius: 10px;
+    border-color: #eee;
+    display: inline-block;
+    background-color: white;
+  }
+  p.links {
+    margin-top: 5px;
+    margin-left: 20px;
+    padding-top: 5px;
+    a, input {
+      display: inline-block;
+    }
+    a {
+      text-align: left;
+      max-width: 80px;
+      margin-right: 15px;
+    }
+    a:first-child {
+      margin-top: 5px;
+      vertical-align: top;
+    }
+  }
 }
