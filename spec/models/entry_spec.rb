@@ -12,7 +12,7 @@ RSpec.describe Entry, :type => :model do
     expect(@entry).to be_valid
   end
 
-  describe 'an entry without a title' do
+  describe 'an entry without proper title' do
     it 'should be invalid with no title' do
       @entry.title = ' '
       expect(@entry).to_not be_valid
@@ -24,12 +24,17 @@ RSpec.describe Entry, :type => :model do
     end
   end
 
-  describe 'an entry without proper amount of content' do
-    it 'should be invalid with no content'
-    it 'should be invalid with too short of content'
+  describe 'an entry without content' do
+    it 'should be invalid' do
+      @entry.content = ' '
+      expect(@entry).to_not be_valid
+    end
   end
 
   describe 'an entry without user' do
-    it 'should be invalid without user reference'
+    it 'should be invalid' do
+      @entry.user = nil
+      expect(@entry).to_not be_valid
+    end
   end
 end
