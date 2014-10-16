@@ -14,10 +14,10 @@ class User < ActiveRecord::Base
   validates :password, presence: true, confirmation: true, length: { :within => 5..100 }
 
   before_save :encrypt_password
-  before_save :default_kira
+  before_save :email_downcase
 
-  def default_kira
-    self.kira = true
+  def email_downcase
+    self.email.downcase!
   end
 
   def has_password?(submitted_password)
