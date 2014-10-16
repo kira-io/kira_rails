@@ -32,6 +32,7 @@ class User < ActiveRecord::Base
 
   private
     def encrypt_password
+      puts "@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@"
       self.salt = Digest::SHA2.hexdigest("#{Time.now.utc}--#{self.password}") if self.new_record?
 
       self.encrypted_password = encrypt(self.password)

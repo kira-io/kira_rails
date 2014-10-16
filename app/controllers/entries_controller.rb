@@ -4,6 +4,7 @@ class EntriesController < ApplicationController
 
   def new
     @user = current_user
+
     if @user.kira == true
       @tmp_alias = "kira"
     else
