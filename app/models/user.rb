@@ -17,7 +17,7 @@ class User < ActiveRecord::Base
   before_save :email_downcase
 
   def email_downcase
-    self.email.downcase!
+    self.email.downcase! if self.email
   end
 
   def has_password?(submitted_password)
