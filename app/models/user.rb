@@ -7,6 +7,8 @@ class User < ActiveRecord::Base
 
   validates :alias, presence: true, length: { :maximum => 25 }
 
+  validates :password_confirmation, presence: true
+  
   validates :password, presence: true, confirmation: true, length: { :within => 5..100 }
 
   before_save :encrypt_password

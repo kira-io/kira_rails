@@ -1,1 +1,34 @@
-<h1><%= @user.alias %></h1>
+<div id="user-show-header">
+  <div class="row">
+    <div class="col-sm-2">
+      <h2><%= @user.alias %></h2>
+    </div>
+    <div class="col-sm-3 col-sm-offset-3">
+      <h3><a href="/messages">(#) messages</a></h3>
+    </div>
+    <div class="col-sm-2">
+      <h3><a href="/posts">browse</a></h3>
+    </div>
+    <div class="col-sm-2">
+      <h3><a href="/signout">logout</a></h3>
+    </div>
+  </div>
+</div>
+
+<div id="user-show-content">
+  <div class="row">
+    <div class="col-sm-2 col-sm-offset-5">
+      <h4><a href="/entries/new">write new</a></h4>
+    </div>
+  </div>
+
+  <% @entries.each do |entry| %>
+  <div class="row">
+    <div id="user-entries" class="col-sm-8 col-sm-offset-2">
+      <p>10/03/2013 at 7:00 pm from California</p>
+      <p><%= entry.title %></p>
+      <p><%= entry.content %></p>
+    </div>
+  </div>
+  <% end %>
+</div>
