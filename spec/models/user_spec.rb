@@ -9,7 +9,7 @@ RSpec.describe User, :type => :model do
     expect(@user).to be_valid
   end
 
-  describe 'when any fields are not present' do
+  describe 'registration form with fields left blank' do
     it 'should be invalid without alias' do
       @user.alias = ' '
       expect(@user).to_not be_valid
@@ -39,11 +39,35 @@ RSpec.describe User, :type => :model do
 
   describe "when email format is valid" do
     it "should be valid" do
-      addresses = %w[user@foo.COM A_US-ER@f.b.org frst.lst@foo.jp a+b@baz.cn]
+      addresses = %w[kobe@foo.COM K_OB-E@b.m.org kobe.bryant@foo.ch]
       addresses.each do |valid_address|
         @user.email = valid_address
         expect(@user).to be_valid
       end
+    end
+  end
+
+  describe 'when email address is already taken' do
+    before do
+      @user.email = 'kobe@bryant.com'
+      @user.save
+      @user2 = User.new(:alias => 'mamba', :password => 'password', :password_confirmation => 'password')
+      @user2.email = 'KOBE@BRYANT.COM'
+      @user2.save
+    end
+
+    it 'should not allow new user with same email' do
+      expect(@user2).to_not be_valid
+    end
+  end
+
+  describe 'with a password that is too short' do
+    before do
+      @user.password = @user.password_confirmation = 'xxxx'
+    end
+
+    it 'should not allow user to register' do
+      expect(@user).to_not be_valid
     end
   end
 end
