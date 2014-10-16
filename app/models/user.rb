@@ -1,4 +1,6 @@
 class User < ActiveRecord::Base
+  has_many :entries
+  has_many :posts
   attr_accessor :password, :password_confirmation
 
   email_regex = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]+)\z/i
@@ -8,13 +10,18 @@ class User < ActiveRecord::Base
   validates :password, presence: true, confirmation: true, length: { :within => 5..100 }
 
   before_save :encrypt_password
+  before_save :default_kira
+
+  def default_kira
+    self.kira = true
+  end
 
   def has_password?(submitted_password)
     self.encrypted_password == encrypt(submitted_password)
   end
 
-  def self.authenticate(email, submitted_password)
-    user = find_by_email(email)
+  def self.authenticate(name, submitted_password)
+    user = User.find_by(:alias => name)
     return nil if user.nil?
     return user if user.has_password?(submitted_password)
   end

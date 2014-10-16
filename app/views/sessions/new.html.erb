@@ -9,15 +9,15 @@
 
     <div id="session-form" class="row">
       <div class="col-sm-8 col-sm-offset-2">
-        <form actions="/sessions" method="post">
+        <form action="/sessions" method="post">
           <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
           <p>
             <label for="alias">alias</label>
-            <input class="pull-right" type="text" name="session[:alias]">
+            <input class="pull-right" type="text" name="session[alias]">
           </p>
           <p>
             <label for="password">password</label>
-            <input class="pull-right" type="password" name="session[:password]">
+            <input class="pull-right" type="password" name="session[password]">
           </p>
           <a href="/users/new">sign up</a>
           <input class="pull-right" type="submit" value="enter">
