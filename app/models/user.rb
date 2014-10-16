@@ -7,10 +7,10 @@ class User < ActiveRecord::Base
 
   validates :alias, presence: true, length: { :maximum => 25 }
 
-  validates :email, format: { :with => email_regex }, uniqueness: { :case_sensitive => false }
+  validates :email, format: { :with => email_regex }, uniqueness: { :case_sensitive => false }, allow_blank: true
 
   validates :password_confirmation, presence: true
-  
+
   validates :password, presence: true, confirmation: true, length: { :within => 5..100 }
 
   before_save :encrypt_password
@@ -33,7 +33,7 @@ class User < ActiveRecord::Base
   private
     def encrypt_password
       self.salt = Digest::SHA2.hexdigest("#{Time.now.utc}--#{self.password}") if self.new_record?
-    
+
       self.encrypted_password = encrypt(self.password)
     end
 
