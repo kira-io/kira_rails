@@ -9,27 +9,30 @@
 
     <div class="row">
       <div class="col-sm-8 col-sm-offset-2">
-        <form actions="/users/create" method="post">
+        <form action="/users" method="post">
           <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
           <p>
             <label for="alias">alias</label>
-            <input class="pull-right" type="text" name="user[:alias]">
+            <input class="pull-right" type="text" name="user[alias]">
           </p>
           <p>
             <label for="password">password</label>
-            <input class="pull-right" type="password" name="user[:password]">
+            <input class="pull-right" type="password" name="user[password]">
           </p>
           <p>
-            <label for="confirm_password">confirm password</label>
-            <input class="pull-right" type="password" name="user[:password]">
-          </p>          
+            <label for="password_confirmation">confirm password</label>
+            <input class="pull-right" type="password" name="user[password_confirmation]">
+          </p>
+          <input type="checkbox">terms & agreements
           <input class="pull-right" type="submit" value="join">
         </form>
       </div>
     </div>
 
     <div class="row">
-      <div></div>
+      <div class="col-sm-8 col-sm-offset-2">
+        <p>read diaries froma ll over ther world. all diary entries are available for 24 hours to the public then disappears. the diary entry is only available to the author afterwards</p>
+      </div>
     </div>
 
   </div>
