@@ -1,0 +1,33 @@
+<div class="row">
+  <div class="col-sm-8 col-sm-offset-2">
+    <div id="session-header" class="row">
+      <div class="col-sm-6 col-sm-offset-3">
+        <h1>kira</h1>
+        <h3>anonymous diaries</h3>
+      </div>
+    </div>
+
+    <div id="session-form" class="row">
+      <div class="col-sm-8 col-sm-offset-2">
+        <form actions="/sessions/create" method="post">
+          <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+          <p>
+            <label for="alias">alias</label>
+            <input class="pull-right" type="text" name="session[:alias]">
+          </p>
+          <p>
+            <label for="password">password</label>
+            <input class="pull-right" type="password" name="session[:password]">
+          </p>
+          <a href="/users/new">sign up</a>
+          <input class="pull-right" type="submit" value="enter">
+        </form>
+      </div>
+    </div>
+
+
+
+      <a href="/users/forgot_password">forgot your password?</a> <!-- need to figure out how to retrieve password from the specific user -->
+    </div>
+  </div>
+</div>
