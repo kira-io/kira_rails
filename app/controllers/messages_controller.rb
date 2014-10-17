@@ -14,7 +14,8 @@ class MessagesController < ApplicationController
 
   def create
     @post = Post.find(params[:post_id])
-    @message = @post.messages.new(content: params[:post][:content])
+    @user = @post.user
+    @message = @user.messages.new(content: params[:post][:content], post: @post)
 
     if @message.save
       redirect_to "/posts/#{@post.id}"

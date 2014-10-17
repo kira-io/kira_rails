@@ -1,20 +1,12 @@
-<div id="user-show-header">
-  <div class="row">
-    <div class="col-sm-2">
-      <h2><a href="/users/<%= session[:user_id] %>"><%= @tmp_alias %></a></h2>
-    </div>
-    <div class="col-sm-3 col-sm-offset-3">
-      <h3>24 joys left</h3>
-    </div>
-    <div class="col-sm-2">
-      <h3><a href="/entries/new">write</a></h3>
-    </div>
-    <div class="col-sm-2">
-      <h3><a href="/signout">logout</a></h3>
-    </div>
-  </div>
-</div>
-
+<% content_for :command_one do %>
+  <a href="/users/<%= current_user.id %>"><span class="glyphicon glyphicon-user"></span></a>
+<% end %>
+<% content_for :command_two do %>
+  <a href="/users_messages"><span class="glyphicon glyphicon-envelope"></span></a>
+<% end %>
+<% content_for :command_three do %>
+  <a href="/signout"><span id="logout" class="glyphicon glyphicon-log-out"></span></a>
+<% end %>
 
 <div id='search' class='row form-group'>
   <div class='col-sm-6 col-sm-offset-3'>

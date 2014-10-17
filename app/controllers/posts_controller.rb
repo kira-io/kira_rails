@@ -1,4 +1,5 @@
 class PostsController < ApplicationController
+  before_action :require_signin
   def index
     @posts = Post.all
     @user = current_user

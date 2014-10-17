@@ -1,6 +1,7 @@
 class UsersController < ApplicationController
-  before_action :require_signin, except: [:create]
+  before_action :require_signin, except: [:new, :create]
   before_action :require_correct_user, only: [:edit, :update, :destroy]
+
   def index
     @users = User.all
   end
@@ -46,20 +47,15 @@ class UsersController < ApplicationController
   end
 
   def messages
-    messages = []
     @user = current_user
-    posts = @user.posts
-    posts.each do |post|
-      messages << post.messages unless post.messages.empty?
-    end
-    @messages = messages.flatten
+    @messages = @user.messages
   end
 
 
   private
     def require_correct_user
       @user = User.find(params[:id])
-        redirect_to root_url unless current_user?(@user)    
+        redirect_to @user unless current_user?(@user)    
     end
 
     def user_params
