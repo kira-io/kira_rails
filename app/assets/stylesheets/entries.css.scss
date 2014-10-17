@@ -1,16 +1,9 @@
 // Place all the styles related to the Entries controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+@import 'header.css.scss';
 
-#entry-new-header h2 a{
-  font-weight: normal;
-}
 
-#entry-new-header a {
-  font-weight: 200;
-  color: black;
-  margin-top: 25px;
-}
 
 #entry-new-content {
   width: 100%;
