@@ -6,3 +6,11 @@ Rails.application.config.assets.version = '1.0'
 # Precompile additional assets.
 # application.js, application.css, and all non-JS/CSS in app/assets folder are already added.
 # Rails.application.config.assets.precompile += %w( search.js )
+
+
+# textAngular
+Rails.application.config.assets.precompile += %w( textAngular.min.css )
+Rails.application.config.assets.precompile += %w( angular.min.js )
+Rails.application.config.assets.precompile += %w( textAngular-sanitize.min.js )
+Rails.application.config.assets.precompile += %w( textAngular.min.js )
+Rails.application.config.assets.precompile += %w( text_angular_diary.js )

@@ -23,3 +23,11 @@ gem 'sass-rails', '>= 3.2'
 gem 'hirb'
 
 gem 'rails-footnotes', '>= 4.0.0', '<5'
+
+# font-awesome  - default icons on the toolbar (479 icons)
+gem 'font-awesome-sass'
+
+gem 'angular-rails-templates'
+
+# recommended to use Autoprefixer with Bootstrap to add browser vendor prefixes automatically.
+gem 'autoprefixer-rails'
