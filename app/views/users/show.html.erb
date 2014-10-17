@@ -20,7 +20,7 @@
     <div id="user-entries" class="col-sm-8 col-sm-offset-2">
       <p><%= entry.created_at.strftime("%b %d, %Y at %l:%M %P") %> from California</p>
       <p><%= entry.title %></p>
-      <p><%= entry.content %></p>
+      <p><%= entry.content.html_safe %></p>
     </div>
   </div>
   <% end %>
