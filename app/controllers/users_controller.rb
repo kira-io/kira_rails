@@ -1,11 +1,8 @@
 class UsersController < ApplicationController
+  before_action :require_signin, except: [:create]
+  before_action :require_correct_user, only: [:edit, :update, :destroy]
   def index
-    @count = 0
-    @posts = User.first.posts
-    @posts.each do |post|
-      @count += post.messages.count
-    end
-    render text: @count
+    @users = User.all
   end
 
   def new
@@ -39,6 +36,15 @@ class UsersController < ApplicationController
     @count = count
   end
 
+  def edit
+  end
+
+  def update 
+  end
+
+  def destroy
+  end
+
   def messages
     messages = []
     @user = current_user
@@ -51,6 +57,11 @@ class UsersController < ApplicationController
 
 
   private
+    def require_correct_user
+      @user = User.find(params[:id])
+        redirect_to root_url unless current_user?(@user)    
+    end
+
     def user_params
       params.require(:user).permit(:alias, :password, :password_confirmation)
     end
