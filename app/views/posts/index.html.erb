@@ -28,7 +28,7 @@
         </div>
       </div>
       <a id="<%= post.id %>" class="post_title" href="/posts/<%= post.id %>"><%= post.title %></a>
-      <p><%= post.content %></p>
+      <p><%= post.content.html_safe %></p>
     </div>
   </div>
 <% end %>

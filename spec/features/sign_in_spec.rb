@@ -6,7 +6,7 @@ RSpec.describe 'Signing in' do
     @user = User.create(:alias => 'kobe', :password =>'password', :password_confirmation => 'password')
   end
 
-  it 'prompts for an email and password' do
+  it 'prompts for an alias and password' do
     expect(page).to have_field('alias')
     expect(page).to have_field('password')
   end
