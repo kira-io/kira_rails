@@ -1,0 +1,22 @@
+#header {
+  div, h3, h2 {
+    display: inline-block;
+  }
+  #commands {
+    float: right;
+    text-align:right;
+  }
+  a {
+    color: black;
+    margin-top: 25px;
+    &:hover {
+      color: #eee;
+    }
+  }
+  span {
+    margin-right: 30px;
+  }
+  #logout {
+    margin-right: 0;
+  }
+}

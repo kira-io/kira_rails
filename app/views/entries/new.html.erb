@@ -1,16 +1,12 @@
-<div id="entry-new-header">
-  <div class="row">
-    <div class="col-sm-2">
-      <h2><a href="/users/<%= session[:user_id] %>"><%= @tmp_alias %></a></h2>
-    </div>
-    <div class="col-sm-2 col-sm-offset-6">
-      <h3><a href="/posts">browse</a></h3>
-    </div>
-    <div class="col-sm-2">
-      <h3><a href="/signout">logout</a></h3>
-    </div>
-  </div>
-</div>
+<% content_for :command_one do %>
+  <a href="/users/<%= current_user.id %>"><span class="glyphicon glyphicon-user"></span></a>
+<% end %>
+<% content_for :command_two do %>
+  <a href="/posts"><span class="glyphicon glyphicon-globe"></span></a>
+<% end %>
+<% content_for :command_three do %>
+  <a href="/signout"><span id="logout" class="glyphicon glyphicon-log-out"></span></a>
+<% end %>
 
 <div id="entry-textangular" class="row">
   <div class="col-sm-8 col-sm-offset-2">
@@ -29,7 +25,7 @@
       <p>
         <textarea id="entry-new-content" name="entry[content]"><%= @content %></textarea>
       </p>
-      <input type="submit" value="Submit"> 
+      <input type="submit" value="Submit">
     </form>
   </div>
 </div>
