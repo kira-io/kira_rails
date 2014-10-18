@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html ng-app='myApp'>
+<html>
 <head>
   <title>Kira</title>
   <%= javascript_include_tag 'http://192.168.15.202:7777/socket.io/socket.io.js', 'data-turbolinks-track' => true %>
@@ -8,10 +8,12 @@
   <%= stylesheet_link_tag 'http://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.2.0/css/font-awesome.css', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   
-  <%= javascript_include_tag 'https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'http://cdnjs.cloudflare.com/ajax/libs/textAngular/1.2.2/textAngular-sanitize.min.js', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular.min.js' %>
+  <%= javascript_include_tag 'https://ajax.googleapis.com/ajax/libs/angularjs/1.2.19/angular-route.min.js' %>
+
+  <%= javascript_include_tag 'http://cdnjs.cloudflare.com/ajax/libs/textAngular/1.2.2/textAngular-sanitize.min.js' %>
   <%= javascript_include_tag 'http://cdnjs.cloudflare.com/ajax/libs/textAngular/1.2.2/textAngular.min.js', 'data-turbolinks-track' => true %>
-  <%= javascript_include_tag 'text_angular_diary.js', 'data-turbolinks-track' => true %>
+  <%= javascript_include_tag 'text_angular_diary.js' %>
 
   <%= csrf_meta_tags %>
 </head>

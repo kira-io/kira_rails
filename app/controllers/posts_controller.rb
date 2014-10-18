@@ -1,11 +1,12 @@
 class PostsController < ApplicationController
   before_action :require_signin
   def index
-    @posts = Post.all
+
+    posts = Post.all
 
     @current_posts = [];
 
-    @posts.each do |post|
+    posts.each do |post|
       if Time.now - post.created_at > 86400
         post.destroy
       else
@@ -20,13 +21,15 @@ class PostsController < ApplicationController
 
     puts @current_posts
 
-    @user = current_user
+    user = current_user
 
-    if @user.kira == true
+
+    if user.kira == true
       @tmp_alias = "kira"
     else
-      @tmp_alias = @user.alias
+      @tmp_alias = user.alias
     end
+
   end
 
   def new
@@ -47,5 +50,10 @@ class PostsController < ApplicationController
   end
 
   def destroy
+  end
+
+  def get_posts
+    posts = Post.all
+    render json: posts
   end
 end

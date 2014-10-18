@@ -1,5 +1,5 @@
 <% content_for :command_one do %>
-  <a href="/users_messages"><span class="glyphicon glyphicon-envelope"></span></a>
+  <a href="/posts/<%= current_user.id %>/messages"><span class="glyphicon glyphicon-envelope"></span></a>
 <% end %>
 <% content_for :command_two do %>
   <a href="/posts"><span class="glyphicon glyphicon-globe"></span></a>
@@ -8,20 +8,23 @@
   <a href="/signout"><span id="logout" class="glyphicon glyphicon-log-out"></span></a>
 <% end %>
 
-<div id="user-show-content">
-  <div class="row">
-    <div class="col-sm-2 col-sm-offset-5">
-      <h4><a href="/entries/new">write new</a></h4>
+<div ng-app='myApp'>
+  <div data-ng-controller='UserController'>
+    <div id="user-show-content">
+      <div class="row">
+        <div class="col-sm-2 col-sm-offset-5">
+          <h4><a href="/entries/new">write new</a></h4>
+          <input type='text' ng-model='filter_name'> {{ filter_name }}
+        </div>
+      </div>
+      <div class="row" ng-repeat=" entry in entries | filter: filter_name | orderBy: 'created_at':true ">
+        <div id="user-entries" class="col-sm-8 col-sm-offset-2">
+          <p ng-bind="entry.created_at | date: 'M/d/yyyy @ H:m a'"></p>
+          <p>FROM LOCATION</p>
+          <p ng-bind='entry.title'></p>
+          <p ng-bind-html='entry.content'></p>
+        </div>
+      </div>
     </div>
   </div>
-
-  <% @entries.each do |entry| %>
-  <div class="row">
-    <div id="user-entries" class="col-sm-8 col-sm-offset-2">
-      <p><%= entry.created_at.strftime("%b %d, %Y at %l:%M %P") %> from California</p>
-      <p><%= entry.title %></p>
-      <p><%= entry.content.html_safe %></p>
-    </div>
-  </div>
-  <% end %>
 </div>

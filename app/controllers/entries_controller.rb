@@ -1,5 +1,12 @@
 class EntriesController < ApplicationController
   def index
+    puts "in index"
+    user = current_user
+    entries = user.entries
+    puts "\n\n\nentries\n\n\n"
+    puts entries.inspect
+
+    render json: entries
   end
 
   def new

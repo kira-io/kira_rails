@@ -1,6 +1,58 @@
-var myApp = angular.module('myApp', ['textAngular']);
+var myApp = angular.module('myApp', ['textAngular', 'ngRoute']);
 
-myApp.controller('TextAngular', function($scope){
+myApp.factory('UsersFactory', function($http){
+  var entries = [];
+  var posts = [];
+  var factory = {};
+
+  factory.getEntries = function(callback){
+    console.log("MADE IT TO THE FACTORY.getEntries");
+    $http.get('/entries').success(function(data){
+      console.log('\n\n\ngetEntries() in factory = data\n\n\n: ', data);
+      entries = data;
+      callback(entries);
+    });
+  }
+
+  factory.getPosts = function(callback){
+    $http.get('/get_posts').success(function(data){
+      posts = data;
+      callback(posts);
+    });
+  }
+
+  factory.getMessages = function(callback){
+    $http.get('/get_messages').success(function(data){
+      messages = data;
+      callback(messages);
+    });
+  }
+
+  return factory;
+});
+
+myApp.controller('UserController', function($scope, UsersFactory){
+  UsersFactory.getEntries(function(data){
+    $scope.entries = data;
+    console.log("UserController $scope.entries", $scope.entries);
+  });
+});
+
+myApp.controller('PostsController', function($scope, UsersFactory){
+  UsersFactory.getPosts(function(data){
+    $scope.posts = data;
+    console.log("UserController $scope.posts", $scope.posts);
+  });
+});
+
+myApp.controller('MessagesController', function($scope, UsersFactory){
+  UsersFactory.getMessages(function(data){
+    $scope.messages = data;
+    console.log("UserController $scope.messages", $scope.messages);
+  });
+});
+
+myApp.controller('TextAngularController', function($scope){
   $scope.submit_diary = function(){
     console.log("hello from diary post");
     console.log("diary_entry.post", $scope.diary_entry.post);

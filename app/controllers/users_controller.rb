@@ -46,12 +46,6 @@ class UsersController < ApplicationController
   def destroy
   end
 
-  def messages
-    @user = current_user
-    @messages = @user.messages
-  end
-
-
   private
     def require_correct_user
       @user = User.find(params[:id])

@@ -1,2 +1,21 @@
-<h1>Messages#index</h1>
-<p>Find me in app/views/messages/index.html.erb</p>
+<% content_for :command_one do %>
+  <a href="/users/<%= current_user.id %>"><span class="glyphicon glyphicon-user"></span></a>
+<% end %>
+<% content_for :command_two do %>
+  <a href="/posts"><span class="glyphicon glyphicon-globe"></span></a>
+<% end %>
+<% content_for :command_three do %>
+  <a href="/signout"><span id="logout" class="glyphicon glyphicon-log-out"></span></a>
+<% end %>
+
+<div ng-app='myApp'>
+  <div ng-controller='MessagesController'>
+    <div class='post row' ng-repeat=" message in messages | filter: filter_name ">
+      <div class='col-sm-8 col-sm-offset-2'>
+        <div class='post_header'>
+          <p ng-bind-html="message.content"></p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
