@@ -2,7 +2,7 @@
   <a href="/users/<%= current_user.id %>"><span class="glyphicon glyphicon-user"></span></a>
 <% end %>
 <% content_for :command_two do %>
-  <a href="/users_messages"><span class="glyphicon glyphicon-envelope"></span></a>
+  <a href="/posts/<%= current_user.id %>/messages"><span class="glyphicon glyphicon-envelope"></span></a>
 <% end %>
 <% content_for :command_three do %>
   <a href="/signout"><span id="logout" class="glyphicon glyphicon-log-out"></span></a>

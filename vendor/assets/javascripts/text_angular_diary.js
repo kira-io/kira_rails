@@ -21,6 +21,13 @@ myApp.factory('UsersFactory', function($http){
     });
   }
 
+  factory.getMessages = function(callback){
+    $http.get('/get_messages').success(function(data){
+      messages = data;
+      callback(messages);
+    });
+  }
+
   return factory;
 });
 
@@ -35,6 +42,13 @@ myApp.controller('PostsController', function($scope, UsersFactory){
   UsersFactory.getPosts(function(data){
     $scope.posts = data;
     console.log("UserController $scope.posts", $scope.posts);
+  });
+});
+
+myApp.controller('MessagesController', function($scope, UsersFactory){
+  UsersFactory.getMessages(function(data){
+    $scope.messages = data;
+    console.log("UserController $scope.messages", $scope.messages);
   });
 });
 

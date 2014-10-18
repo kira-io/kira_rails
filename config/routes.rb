@@ -6,11 +6,10 @@ Rails.application.routes.draw do
     resources :messages, except: [:edit, :update]
   end
 
-  #user messages
-  get "/users_messages" => "users#messages"
-
-  #posts
+  # posts
   get "/get_posts" => "posts#get_posts"
+  # messages
+  get "/get_messages" => "messages#get_messages"
 
   # user friendly routes
   get '/register' => 'users#new'

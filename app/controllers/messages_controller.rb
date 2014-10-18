@@ -1,5 +1,6 @@
 class MessagesController < ApplicationController
   def index
+    @user = current_user
   end
 
   def new
@@ -30,5 +31,11 @@ class MessagesController < ApplicationController
   end
 
   def destroy
+  end
+
+  def get_messages
+    puts "hello get_messages"
+    user = current_user
+    render json: user.messages
   end
 end
