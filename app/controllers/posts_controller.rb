@@ -1,14 +1,15 @@
 class PostsController < ApplicationController
   before_action :require_signin
   def index
-    @posts = Post.all
-    @user = current_user
+    posts = Post.all
+    user = current_user
 
-    if @user.kira == true
+    if user.kira == true
       @tmp_alias = "kira"
     else
-      @tmp_alias = @user.alias
+      @tmp_alias = user.alias
     end
+
   end
 
   def new
@@ -29,5 +30,10 @@ class PostsController < ApplicationController
   end
 
   def destroy
+  end
+
+  def get_posts
+    posts = Post.all
+    render json: posts
   end
 end

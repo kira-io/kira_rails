@@ -2,6 +2,7 @@ var myApp = angular.module('myApp', ['textAngular', 'ngRoute']);
 
 myApp.factory('UsersFactory', function($http){
   var entries = [];
+  var posts = [];
   var factory = {};
 
   factory.getEntries = function(callback){
@@ -13,6 +14,13 @@ myApp.factory('UsersFactory', function($http){
     });
   }
 
+  factory.getPosts = function(callback){
+    $http.get('/get_posts').success(function(data){
+      posts = data;
+      callback(posts);
+    });
+  }
+
   return factory;
 });
 
@@ -20,6 +28,13 @@ myApp.controller('UserController', function($scope, UsersFactory){
   UsersFactory.getEntries(function(data){
     $scope.entries = data;
     console.log("UserController $scope.entries", $scope.entries);
+  });
+});
+
+myApp.controller('PostsController', function($scope, UsersFactory){
+  UsersFactory.getPosts(function(data){
+    $scope.posts = data;
+    console.log("UserController $scope.posts", $scope.posts);
   });
 });
 

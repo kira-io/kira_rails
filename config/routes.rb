@@ -9,6 +9,9 @@ Rails.application.routes.draw do
   #user messages
   get "/users_messages" => "users#messages"
 
+  #posts
+  get "/get_posts" => "posts#get_posts"
+
   # user friendly routes
   get '/register' => 'users#new'
   get '/signin' => 'sessions#new'
