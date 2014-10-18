@@ -1,3 +1,55 @@
+<script type="text/javascript">
+  $(document).ready(function(){
+    var timer = function(name, year, month, day, hour){
+        $(function(){
+            var note = $('#note'),
+                // ts = new Date(2014, 10, 16, 17, 0, 0),
+                ts = new Date(year, month, day, hour, 0, 0),
+                // ts = new Date(),
+                newYear = true;
+            if((new Date()) > ts){
+                // The new year is here! Count towards something else.
+                // Notice the *1000 at the end - time must be in milliseconds
+                ts = (new Date()).getTime() + 10*24*60*60*1000;
+                newYear = false;
+            }
+            $(name).countdown({
+                timestamp   : ts,
+                callback    : function(days, hours, minutes, seconds){
+                    var message = "";
+                    message += days + " day" + ( days==1 ? '':'s' ) + ", ";
+                    message += hours + " hour" + ( hours==1 ? '':'s' ) + ", ";
+                    message += minutes + " minute" + ( minutes==1 ? '':'s' ) + " and ";
+                    message += seconds + " second" + ( seconds==1 ? '':'s' ) + " <br />";
+                    if(newYear){
+                        message = "August, 2014 cohort<br>Seattle, Washington";
+                        // message += "left until the <br>Seattle September, 2014 <br>cohort graduation!";
+                    }
+                    else {
+                        message += "left to 10 days from now!";
+                    }
+                    if(days==0 && hours==0 && minutes==0 && seconds==0)
+                    {
+                       
+                        $('#count_down_message').fadeIn('slow', function(){
+                          $(this).fadeOut('slow')
+                        })
+                        $(name).css('display','none');
+                        // $('.status').css('color', '#00FFFF');
+                        // $('#chat_room').css('background-color', '#D8D8D8');
+                           
+                    }
+                    note.html(message);
+                }
+            });
+      });
+    }
+    var diary1 = timer("#countdown1", 2014, 10, 19, 08)
+    var diary2 = timer("#countdown2", 2014, 10, 20, 17)
+
+    // timer(post id, year, month, day, hour)
+  });
+</script>
 <div id="user-show-header">
   <div class="row">
     <div class="col-sm-2">
@@ -13,7 +65,8 @@
 
   <div class='row'>
     <div id='timer' class='col-sm-6 col-sm-offset-4'>
-          <h2>30 seconds left</h2>
+          <div id="countdown1" class="countdownHolder"></div> 
+          <div id='count_down_message'><h3>You are now in limbo</h3></div>
        </div>
   </div>
   
