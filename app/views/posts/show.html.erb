@@ -50,43 +50,29 @@
     // timer(post id, year, month, day, hour)
   });
 </script>
-<div id="user-show-header">
-  <div class="row">
-    <div class="col-sm-2">
-      <h2><a href="/users/<%= session[:user_id] %>"><%= @tmp_alias %></a></h2>
-    </div>
-    <div class="col-sm-2 col-sm-offset-6">
-      <h3><a href="/posts">browse</a></h3>
-    </div>
-    <div class="col-sm-2">
-      <h3><a href="/signout">logout</a></h3>
-    </div>
-  </div>
 
-  <div class='row'>
-    <div id='timer' class='col-sm-6 col-sm-offset-4'>
-          <div id="countdown1" class="countdownHolder"></div> 
-          <div id='count_down_message'><h3>You are now in limbo</h3></div>
-       </div>
+
+<div class='row'>
+  <div id='timer' class='col-sm-6 col-sm-offset-4'>
+    <div id="countdown1" class="countdownHolder"></div> 
+    <div id='count_down_message'><h3>You are now in limbo</h3></div>
   </div>
-  
-  <div class='row'>
-    <div id='post' class='col-sm-4'>
-      <div id='post_header'>
-        <span class="status glyphicon glyphicon-unchecked"></span>
-        <h3><%= @post.name %>, <small>from California</small></h3>
-      </div>
-      <p><%= @post.content %></p>
+</div>
+
+<div class='row'>
+  <div id='post' class='col-sm-6'>
+    <div id='post_header'>
+      <h3><i class='fa fa-circle <%= @post.color %>'></i></h3>
+      <h3><%= @post.name %>, <small>from California</small></h3>
     </div>
-    <div class='col-sm-7'>
-      <div id='chat_room'>
-        <p>Eduardo: Hi guys</p>
-        <p>Andrew: Hello there</p>
-      </div>
-      <form>
-        <input id='message' type='text' class='form-control' name='message'>
-        <!-- <input type='submit' value='Submit' class='btn btn-default pull-right'> -->
-      </form>
-    </div>
+    <p><%= @post.content.html_safe %></p>
   </div>
-  <%= link_to "Write #{@post.name} a message", new_post_message_path(@post) %>
+  <div class='col-sm-6'>
+    <div id='chat_room'></div>
+    <form>
+      <input id='message' type='text' class='form-control' name='message'>
+      <!-- <input type='submit' value='Submit' class='btn btn-default pull-right'> -->
+    </form>
+  </div>
+</div>
+<%= link_to "Write #{@post.name} a message", new_post_message_path(@post) %>
