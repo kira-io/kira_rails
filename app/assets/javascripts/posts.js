@@ -39,8 +39,6 @@ $(document).ready(function(){
 	$(document).on('submit', 'form', function(){
 		console.log($('#message').val().replace(/(<([^>]+)>)/ig,""));
 		var message = $('#message').val().replace(/(<([^>]+)>)/ig,"");
-		
-
 
 		if(message.replace(/\s/g,"") == ""){
 			//if string is empty or spaces do nothing
