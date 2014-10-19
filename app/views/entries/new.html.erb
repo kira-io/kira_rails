@@ -8,40 +8,16 @@
   <a href="/signout"><span id="logout" class="glyphicon glyphicon-log-out"></span></a>
 <% end %>
 
-<div ng-app='myApp'>
-  <div data-ng-controller='TextAngularController'>
-    <div class='row'>
-
-      <div class='col-sm-2'></div>
-
-      <div class='col-sm-8'>
-
-
-  <div id="entry-new-form" class="row">
-    <div class="col-sm-8 col-sm-offset-2">
-      <form action="/entries" method="post">
-        <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
-        <p>
-          <label>Title</label>
-          <input type='text' name='entry[title]' />
-        </p>
-        
-        <text-angular name='entry[content]' data-ng-model='diary_entry.post' ta-toolbar="[['h1','h2','h3','h4','h5','h6','p','pre'], ['justifyLeft','justifyCenter','justifyRight','indent','outdent', 'ul', 'ol'],['bold','italics','underline', 'clear'],['colorGold', 'colorOrange', 'colorRed', 'colorFuchsia', 'colorPurple', 'colorMaroon', 'colorNavy', 'colorBlue', 'colorAqua', 'colorLime', 'colorGreen', 'colorOlive', 'colorBlack', 'colorGray', 'colorSilver']]"></text-angular>
-        <input type="submit" value="Submit">
-      </form>
-    </div>
+<div ng-app='myApp' ng-controller='TextAngularController' class='row'>
+  <div class='col-sm-6 col-sm-offset-3'>
+    <form action='/entries' method='post'>
+      <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+      <p>
+        <label>Title</label>
+        <input type='text' name='entry[title]' />
+      </p>
+      <text-angular name='entry[content]' data-ng-model='diary_entry.post' ta-toolbar="[['h1','h2','h3','h4','h5','h6','p','pre'], ['justifyLeft','justifyCenter','justifyRight','indent','outdent', 'ul', 'ol'],['bold','italics','underline', 'clear'],['colorGold', 'colorOrange', 'colorRed', 'colorFuchsia', 'colorPurple', 'colorMaroon', 'colorNavy', 'colorBlue', 'colorAqua', 'colorLime', 'colorGreen', 'colorOlive', 'colorBlack', 'colorGray', 'colorSilver']]"></text-angular>
+      <input type="submit" value="Submit">
+    </form>
   </div>
 </div>
-
-    
-
-
-
-
-    
-
-
-
-
-
-
