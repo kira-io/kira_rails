@@ -3,82 +3,102 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 @import 'myTextAngular.css.scss';
 
-  #header h1{
-    display: inline-block;
+#header {
+  h1 {
+    display:inline-block;
   }
-    #header div a{
-      margin-top: 30px;
-      font-size: 1.2em;
-    }
-  #search{
-    margin-top: 40px;
-    margin-bottom: 40px;
+  div a {
+    margin-top:30px;
+    font-size:1.2em;
   }
-  .post{
-    margin-bottom: 40px;
-  }
-    .post div{
-      border: 2px solid #E6E6E6;
-      border-radius: 10px;
-    }
-      .post div div{
-        border: none;
-      }
-    .post_header .status{
-      font-size: 2.2em;
-    }
-      .post_header{
-        margin-top: 10px;
-      }
-        .post_header h3{
-          display: inline-block;
-        }
-        .post_header div, h4{
-          display:inline-block;
-        }
-        .joys{
-          font-size: 1.8em;
-        }
-      .post_title{
-        display: block;
-        margin-top: 10px;
-        margin-bottom: 10px;
-        font-size: 1.4em
-      }
-  #header a{
-    margin-top: 30px;
-    font-size: 1.2em
-  }
-  #timer{
-    margin-top: 10px;
-    margin-bottom: 30px;
-  }
-  #post, #chat_room {
-    border: 2px solid #E6E6E6;
+}
+
+#search {
+  margin-top: 40px;
+  margin-bottom: 40px;
+}
+
+.post {
+  margin-bottom: 40px;
+  div {
+    border:2px solid #E6E6E6;
     border-radius: 10px;
+    div {
+      border:none;
+    }
   }
-  #post_header span{
-    font-size: 1.8em;
+}
+
+.post_header {
+  margin-top:10px;
+  .status {
+    font-size:2.2em;
   }
-  #post_header h3{
-    display: inline-block;
+  h3 {
+    display:inline-block;
   }
-  #chat_room{
-    padding: 10px;
-    margin-bottom: 10px;
+  div, h4 {
+    display:inline-block;
   }
-  input[type="submit"]{
-    margin-top: 10px;
+}
+
+.joys {
+  font-size:1.8em;
+}
+
+.post_title {
+  display:block;
+  margin-top:10px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  font-size: 1.4em
+}
+
+#header a {
+  margin-top: 30px;
+  font-size: 1.2em;
+}
+
+#timer {
+  margin-top: 10px;
+  margin-bottom: 30px;
+}
+
+#post, #chat_room {
+  border: 2px solid #E6E6E6;
+  border-radius: 10px;
+}
+
+#post_header {
+  span{
+    font-size:1.8em;
   }
-  #count_down_message{
-    display: none;
+  h3{
+    display:inline-block;
   }
-  .p_red{
-    color: red;
-  }
-  .p_orange{
-    color: orange;
-  }
-  .p_green{
-    color: green;
-  }
+}
+
+#chat_room {
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+input[type="submit"] {
+  margin-top: 10px;
+}
+
+#count_down_message {
+  display: none;
+}
+
+.p_red {
+  color: red;
+}
+
+.p_orange {
+  color: orange;
+}
+
+.p_green {
+  color: green;
+}
