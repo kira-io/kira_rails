@@ -40,7 +40,13 @@ myApp.controller('UserController', function($scope, UsersFactory){
 
 myApp.controller('PostsController', function($scope, UsersFactory){
   UsersFactory.getPosts(function(data){
-    $scope.posts = data;
+    
+    for (var i=0; i< data.length; i++) {
+      var total = Math.floor((Date.parse(new Date()) - Date.parse(data[i].created_at)) / 3600000 + data[i].joys);
+      data[i].rank = total;
+      data[i].time_ago = Math.floor((Date.parse(new Date()) - Date.parse(data[i].created_at))/ 3600000);
+    };
+    $scope.posts = data
     console.log("UserController $scope.posts", $scope.posts);
   });
 });
