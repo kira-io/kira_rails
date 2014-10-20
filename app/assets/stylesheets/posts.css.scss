@@ -1,7 +1,13 @@
 // Place all the styles related to the Posts controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
-@import 'myTextAngular.css.scss';
+
+h1, h2, h3, h4,
+h5, h6, p, pre,
+font {
+  word-wrap: break-word;
+}
+
 
 #header {
   h1 {
@@ -52,6 +58,10 @@
   margin-top: 10px;
   margin-bottom: 10px;
   font-size: 1.4em
+}
+
+.post_content {
+  word-wrap: break-word;
 }
 
 #header a {

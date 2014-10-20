@@ -22,7 +22,7 @@
       <h3><i class='fa fa-circle <%= @post.color %>'></i></h3>
       <h3><%= @post.name %>, <small>from California</small></h3>
     </div>
-    <p><%= @post.content.html_safe %></p>
+    <p class='post_content'><%= (word_wrap @post.content).html_safe %></p>
   </div>
   <div class='col-sm-6'>
     <div id='chat_room'></div>

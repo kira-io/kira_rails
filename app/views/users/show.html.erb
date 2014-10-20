@@ -10,21 +10,25 @@
 
 <div ng-app='myApp'>
   <div data-ng-controller='UserController'>
-    <div id="user-show-content">
-      <div class="row">
-        <div class="col-sm-2 col-sm-offset-5">
-          <h4><a href="/entries/new">write new</a></h4>
-          <input type='text' ng-model='filter_name'> {{ filter_name }}
-        </div>
-      </div>
-      <div class="row" ng-repeat=" entry in entries | filter: filter_name | orderBy: 'created_at':true ">
-        <div id="user-entries" class="col-sm-8 col-sm-offset-2">
-          <p ng-bind="entry.created_at | date: 'M/d/yyyy @ H:m a'"></p>
-          <p>FROM LOCATION</p>
-          <p ng-bind='entry.title'></p>
-          <p ng-bind-html='entry.content'></p>
-        </div>
+
+    <h4><a href="/entries/new">write new</a></h4>
+    <div id='search' class='row form-group'>
+      <div class='col-sm-6 col-sm-offset-3'>
+        <input type="text" class="form-control" ng-model='filter_name' placeholder="Search entries here">
       </div>
     </div>
+
+    <div class="row" ng-repeat=" entry in entries | filter: filter_name | orderBy: 'created_at':true ">
+      <div class='col-sm-6 col-sm-offset-3'>
+        <div class='post_header'>
+          <div>
+            <h3>{{ entry.title }}, <small>from California</small></h3>
+            <p ng-bind="entry.created_at | date: 'M/d/yyyy @ H:m a'"></p>
+          </div>
+        </div>
+        <p class='post_content' ng-bind-html="entry.content"></p>
+      </div>
+    </div>
+
   </div>
 </div>
