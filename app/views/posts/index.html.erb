@@ -22,7 +22,7 @@
         <div class='post_header'>
           <div>
             <h3><i class='fa fa-circle {{ post.color }}'></i></h3>
-            <h3>{{ post.name }}, <small>FROM LOCATION</small></h3>
+            <h3 ng-click='deletePost($index)'>{{ post.name }}, <small>FROM LOCATION</small></h3>
             <p>{{ post.time_ago }} hours ago</p>
           </div>
           <div class='pull-right'>

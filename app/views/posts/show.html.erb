@@ -12,6 +12,7 @@
 <div class='row'>
   <div id='timer' class='col-sm-6 col-sm-offset-4'>
     <div id="countdown1" class="countdownHolder"></div> 
+    <div id="created_at" data-created='<%= @post.created_at %>'><%= @post.created_at %></div> 
     <div id='count_down_message'><h3>You are now in limbo</h3></div>
   </div>
 </div>
@@ -26,7 +27,7 @@
   </div>
   <div class='col-sm-6'>
     <div id='chat_room'></div>
-    <form id='<%= @post.id %>'>
+    <form id='room_id' data-room="<%= @post.id %>">
       <input id='message' type='text' class='form-control' name='message'>
       <input type='submit' value='Submit' class='btn btn-default pull-right'>
     </form>

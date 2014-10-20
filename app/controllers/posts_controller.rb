@@ -1,7 +1,6 @@
 class PostsController < ApplicationController
   before_action :require_signin
   def index
-
     posts = Post.all
 
     @current_posts = [];

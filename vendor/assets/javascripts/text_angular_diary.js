@@ -1,9 +1,15 @@
 var myApp = angular.module('myApp', ['textAngular', 'ngRoute']);
 
-myApp.factory('UsersFactory', function($http){
+myApp.factory('UsersFactory', function($http, socket){
   var entries = [];
   var posts = [];
   var factory = {};
+
+
+  factory.delete_post = function(index){
+    console.log(index)
+    posts.splice(index,1)
+  }
 
   factory.getEntries = function(callback){
     console.log("MADE IT TO THE FACTORY.getEntries");
@@ -21,6 +27,19 @@ myApp.factory('UsersFactory', function($http){
     });
   }
 
+  factory.deletePosts = function(){
+    var d = new Date()
+    var time = Math.floor(Date.parse(d)/60000)
+    for(i in posts){
+      var created_at = Math.floor(Date.parse(posts[i].created_at)/60000)
+      if(time - created_at >= 1440){
+        var room_number = posts[i].id
+        posts.splice(i,1);
+        socket.emit('client: limbo_room', {post_id: room_number})
+      }
+    }
+  }
+
   factory.getMessages = function(callback){
     $http.get('/get_messages').success(function(data){
       messages = data;
@@ -36,11 +55,11 @@ myApp.controller('UserController', function($scope, UsersFactory){
     $scope.entries = data;
     console.log("UserController $scope.entries", $scope.entries);
   });
+
 });
 
-myApp.controller('PostsController', function($scope, UsersFactory){
+myApp.controller('PostsController', function($scope, UsersFactory, socket){
   UsersFactory.getPosts(function(data){
-    
     for (var i=0; i< data.length; i++) {
       var total = Math.floor((Date.parse(new Date()) - Date.parse(data[i].created_at)) / 3600000 + data[i].joys);
       data[i].rank = total;
@@ -49,6 +68,15 @@ myApp.controller('PostsController', function($scope, UsersFactory){
     $scope.posts = data
     console.log("UserController $scope.posts", $scope.posts);
   });
+
+
+  setInterval(function(){
+    UsersFactory.deletePosts();
+    
+    $scope.$apply();
+    
+  }, 60000);
+
 });
 
 myApp.controller('MessagesController', function($scope, UsersFactory){
@@ -58,11 +86,37 @@ myApp.controller('MessagesController', function($scope, UsersFactory){
   });
 });
 
-myApp.controller('TextAngularController', function($scope){
+myApp.controller('TextAngularController', function($scope, UsersFactory){
   $scope.submit_diary = function(){
     console.log("hello from diary post");
     console.log("diary_entry.post", $scope.diary_entry.post);
   }
+});
+
+myApp.factory('socket', function ($rootScope){
+  var socket = io.connect("http://192.168.15.202:7777", {force_connection: true});
+  return {
+    on: function(eventName, callback) {
+      socket.on(eventName, function() {
+        var args = arguments;
+        $rootScope.$apply(function() {
+          if (callback) {
+            callback.apply(socket, args)
+          }
+        });
+      })
+    },
+    emit: function(eventName, data, callback) {
+      socket.emit(eventName, data, function (){
+        var args = arguments;
+        $rootScope.$apply(function (){
+          if(callback) {
+            callaback.apply(socket, args);
+          }
+        });
+      })
+    }
+  };
 });
 
 myApp.config(function($provide){
