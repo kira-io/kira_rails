@@ -26,7 +26,7 @@
     <p class='post_content'><%= (word_wrap @post.content).html_safe %></p>
   </div>
   <div class='col-sm-6'>
-    <div id='chat_room'></div>
+    <div id='chat_room' class='room<%= @post.id %>'></div>
     <form id='<%= @post.id %>'>
       <input id='message' type='text' class='form-control' name='message'>
       <input type='submit' value='Submit' class='btn btn-default pull-right'>

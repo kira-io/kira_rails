@@ -34,7 +34,7 @@ var socket = io.connect("http://192.168.15.202:7777", {force_connection: true});
 // });
 
 socket.on('server:expired_room', function (data){
-    $('body').css('background-color', 'silver')
+    $('.room' + room_number).css('background-color', 'silver')
 })
 
 socket.on('server:incoming_message', function(data){
