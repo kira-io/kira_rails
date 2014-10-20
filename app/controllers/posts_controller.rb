@@ -37,6 +37,14 @@ class PostsController < ApplicationController
   def create
   end
 
+  def update_post
+    puts params
+    post = Post.find(params[:post])
+    post.joys += 1
+    post.save
+    render json: post
+  end
+
   def show
     @post = Post.find(params[:id])
     @user = current_user
@@ -55,4 +63,9 @@ class PostsController < ApplicationController
     posts = Post.all
     render json: posts
   end
+
+  def get_post
+    fail
+  end
+
 end

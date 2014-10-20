@@ -2,9 +2,6 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-@import 'myTextAngular.css.scss';
-@import 'sessions.css.scss';
-
 .description {
   margin-top: 50px;
   text-align: center;
@@ -15,5 +12,16 @@
   display: inline-block;
   p {
     display: inline-block;
+  }
+}
+
+#user_commands {
+  text-align: center;
+  a {
+    color: black;
+  }
+  h3 {
+    display: inline-block;
+    margin: 30px;
   }
 }
