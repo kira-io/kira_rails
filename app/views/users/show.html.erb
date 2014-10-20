@@ -11,10 +11,13 @@
 <div ng-app='myApp'>
   <div data-ng-controller='UserController'>
 
-    <h4><a href="/entries/new">write new</a></h4>
-    <div id='search' class='row form-group'>
+    <div class='row form-group'>
       <div class='col-sm-6 col-sm-offset-3'>
-        <input type="text" class="form-control" ng-model='filter_name' placeholder="Search entries here">
+        <div id='user_commands'>
+          <h3><a href="/entries/new"><span class="glyphicon glyphicon-pencil"></span></a></h3>
+          <h3><a href="/entries/new"><span class="glyphicon glyphicon-cog"></span></a></h3>
+        </div>
+        <input id='search' type="text" class="form-control" ng-model='filter_name' placeholder="Search entries here">
       </div>
     </div>
 
