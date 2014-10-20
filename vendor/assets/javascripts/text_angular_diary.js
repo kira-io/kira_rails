@@ -105,9 +105,9 @@ myApp.controller('PostsController', function($scope, UsersFactory, socket, $http
 
   setInterval(function(){
     UsersFactory.deletePosts();
-    
+
     $scope.$apply();
-    
+
   }, 10000);
 
   $scope.giveJoy = function(post_id) {
