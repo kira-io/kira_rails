@@ -3,10 +3,6 @@ var socket = io.connect("http://192.168.15.202:7777", {force_connection: true});
 var room_number = 0;
 var user_name = 'kira';
 
-$(document).on('click', '.post_title', function(){
-    room_number = $(this).attr('id');
-})
-
 $(document).on('submit', 'form', function(){
   console.log($('#message').val().replace(/(<([^>]+)>)/ig,""));
   var message = $('#message').val().replace(/(<([^>]+)>)/ig,"");
@@ -21,7 +17,8 @@ $(document).on('submit', 'form', function(){
 socket.emit('disconnect', {room: room_number});
 
 socket.on('server:expired_room', function (data){
-    $('.limbo' + room_number).css('background-color', 'silver')
+    $('.limbo' + data.room_num).css('background-color', 'silver')
+    console.log('.limbo + roomnumber', data.room_num)
 })
 
 socket.on('server:incoming_message', function(data){
