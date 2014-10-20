@@ -63,10 +63,10 @@ myApp.factory('UsersFactory', function($http, socket){
     var time = Math.floor(Date.parse(d)/60000)
     for(i in posts){
       var created_at = Math.floor(Date.parse(posts[i].created_at)/60000)
-      if(time - created_at >= 1440){
-        var room_number = posts[i].id
+      if(time - created_at >= 30){
+        var post_id = posts[i].id
         posts.splice(i,1);
-        socket.emit('client: limbo_room', {post_id: room_number})
+        socket.emit('client:limbo_room', {room_number: post_id})
       }
     }
   }
@@ -89,7 +89,7 @@ myApp.controller('UserController', function($scope, UsersFactory){
 
 });
 
-myApp.controller('PostsController', function($scope, UsersFactory, socket){
+myApp.controller('PostsController', function($scope, UsersFactory, socket, $http){
 
   socket.emit('in_all_posts');
 
@@ -108,7 +108,7 @@ myApp.controller('PostsController', function($scope, UsersFactory, socket){
     
     $scope.$apply();
     
-  }, 60000);
+  }, 10000);
 
   $scope.giveJoy = function(post_id) {
     console.log('client clicked on', post_id);
@@ -152,7 +152,7 @@ myApp.controller('TextAngularController', function($scope, UsersFactory){
 });
 
 myApp.factory('socket', function ($rootScope){
-  var socket = io.connect("http://192.168.15.202:7777", {force_connection: true});
+  // var socket = io.connect("http://192.168.15.202:7777", {force_connection: true});
   return {
     on: function(eventName, callback) {
       socket.on(eventName, function() {
