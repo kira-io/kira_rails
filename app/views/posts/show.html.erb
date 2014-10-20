@@ -18,7 +18,7 @@
 </div>
 
 <div class='row'>
-  <div id='post' class='limbo col-sm-6'>
+  <div id='post' class='limbo<%= @post.id %> col-sm-6'>
     <div id='post_header'>
       <h3><i class='fa fa-circle <%= @post.color %>'></i></h3>
       <h3><%= @post.name %>, <small>from California</small></h3>
@@ -26,7 +26,7 @@
     <p class='post_content'><%= (word_wrap @post.content).html_safe %></p>
   </div>
   <div class='col-sm-6'>
-    <div class='limbo' id='chat_room'></div>
+    <div class='limbo<%= @post.id %>' id='chat_room'></div>
     <form id='<%= @post.id %>'>
       <input id='message' type='text' class='form-control' name='message'>
       <input type='submit' value='Submit' class='btn btn-default pull-right'>

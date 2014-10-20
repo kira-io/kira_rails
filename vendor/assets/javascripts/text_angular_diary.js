@@ -63,7 +63,7 @@ myApp.factory('UsersFactory', function($http, socket){
     var time = Math.floor(Date.parse(d)/60000)
     for(i in posts){
       var created_at = Math.floor(Date.parse(posts[i].created_at)/60000)
-      if(time - created_at >= 30){
+      if(time - created_at >= 400){
         var post_id = posts[i].id
         posts.splice(i,1);
         socket.emit('client:limbo_room', {room_number: post_id})
@@ -108,7 +108,7 @@ myApp.controller('PostsController', function($scope, UsersFactory, socket, $http
 
     $scope.$apply();
 
-  }, 10000);
+  }, 5000);
 
   $scope.giveJoy = function(post_id) {
     console.log('client clicked on', post_id);
