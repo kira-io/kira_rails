@@ -1,4 +1,35 @@
 var myApp = angular.module('myApp', ['textAngular', 'ngRoute']);
+myApp.config([ "$httpProvider", function($httpProvider) {
+      $httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content');
+    }
+]);
+
+myApp.factory('socket', function ($rootScope) {
+
+  return {
+    on: function(eventName, callback) {
+          socket.on(eventName, function() {
+            var args = arguments;
+            $rootScope.$apply(function() {
+              if(callback) {
+                callback.apply(socket, args);
+              }
+            });
+          })
+        },
+  emit: function(eventName, data, callback) {
+          socket.emit(eventName, data, function (){
+            var args = arguments;
+            $rootScope.$apply(function(){
+              if(callback) {
+                callback.apply(socket, args);
+              }
+            });
+          });
+        }
+  };
+});
+
 
 myApp.factory('UsersFactory', function($http){
   var entries = [];
@@ -38,9 +69,11 @@ myApp.controller('UserController', function($scope, UsersFactory){
   });
 });
 
-myApp.controller('PostsController', function($scope, UsersFactory){
+myApp.controller('PostsController', function($scope, UsersFactory, socket, $http){
+
+  socket.emit('in_all_posts');
+
   UsersFactory.getPosts(function(data){
-    
     for (var i=0; i< data.length; i++) {
       var total = Math.floor((Date.parse(new Date()) - Date.parse(data[i].created_at)) / 3600000 + data[i].joys);
       data[i].rank = total;
@@ -49,7 +82,36 @@ myApp.controller('PostsController', function($scope, UsersFactory){
     $scope.posts = data
     console.log("UserController $scope.posts", $scope.posts);
   });
+
+  $scope.giveJoy = function(post_id) {
+    console.log('client clicked on', post_id);
+
+    for(var i=0; i < $scope.posts.length; i++) {
+      if($scope.posts[i].id == post_id) {
+        $scope.posts[i].joys += 1;
+      }
+    }
+
+    $http.post('./update_post', {post: post_id});
+    socket.emit('client:give_joy', { id: post_id });
+  };
+
+  $scope.joinRoom = function(post_id) {
+    socket.emit('client:join_room', { room: post_id } )
+  }
+
+  socket.on('server:update_joys', function(data) {
+    for(var i=0; i < $scope.posts.length; i++) {
+      if($scope.posts[i].id == data.post) {
+        $scope.posts[i].joys += 1;
+      }
+    }
+  });
+
+
+
 });
+
 
 myApp.controller('MessagesController', function($scope, UsersFactory){
   UsersFactory.getMessages(function(data){

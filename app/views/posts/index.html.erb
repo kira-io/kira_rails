@@ -26,12 +26,12 @@
             <p>{{ post.time_ago }} hours ago</p>
           </div>
           <div class='pull-right'>
-            <span class="joys glyphicon glyphicon-heart"></span>
+            <span ng-click="giveJoy(post.id)" class="joys glyphicon glyphicon-record"></span>
             <h4>{{ post.joys }}</h4>
           </div>
 
         </div>
-        <a id="{{ post.id }}" class="post_title" ng-href="/posts/{{ post.id }}">{{ post.title }}</a>
+        <a id="{{ post.id }}" class="post_title" ng-click="joinRoom(post.id)" ng-href="/posts/{{ post.id }}">{{ post.title }}</a>
         <p ng-bind-html="post.content"></p>
       </div>
     </div>
