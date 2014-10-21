@@ -115,7 +115,15 @@ myApp.controller('PostsController', function($scope, UsersFactory, socket, $http
 
     console.log('sorted all_posts', all_posts);
 
-    for(var i = 0; i < all_posts.length; i++){
+    var post_array_create_length = 0;
+    
+    if(all_posts.length > 5){
+      post_array_create_length = 5;
+    } else {
+      post_array_create_length = all_posts.length;
+    }
+
+    for(var i = 0; i < post_array_create_length; i++){
       $scope.posts.push(all_posts[i]);
     }
     console.log("UserController $scope.posts", $scope.posts);
