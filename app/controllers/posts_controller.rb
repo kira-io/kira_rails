@@ -18,7 +18,7 @@ class PostsController < ApplicationController
       end
     end
 
-    puts @current_posts
+    puts @current_posts.inspect
 
     user = current_user
 

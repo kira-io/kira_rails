@@ -1,4 +1,4 @@
-var myApp = angular.module('myApp', ['textAngular', 'ngRoute', 'infinite-scroll']);
+var myApp = angular.module('myApp', ['textAngular', 'ngRoute']);
 myApp.config([ "$httpProvider", function($httpProvider) {
       $httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content');
     }
@@ -90,28 +90,16 @@ myApp.controller('UserController', function($scope, UsersFactory){
 });
 
 myApp.controller('PostsController', function($scope, UsersFactory, socket, $http){
-  var all_posts;
+
   socket.emit('in_all_posts');
 
   UsersFactory.getPosts(function(data){
-    $scope.posts = [];
     for (var i=0; i< data.length; i++) {
       var total = Math.floor((Date.parse(new Date()) - Date.parse(data[i].created_at)) / 3600000 + data[i].joys);
       data[i].rank = total;
       data[i].time_ago = Math.floor((Date.parse(new Date()) - Date.parse(data[i].created_at))/ 3600000);
     };
-    all_posts = data;
-    console.log('originial all_posts', all_posts);
-
-    all_posts.sort(function(one,two){
-      return two.rank - one.rank;
-    });
-
-    console.log('sorted all_posts', all_posts);
-
-    for(var i = 0; i < 5; i++){
-      $scope.posts.push(all_posts[i]);
-    }
+    $scope.posts = data
     console.log("UserController $scope.posts", $scope.posts);
   });
 
@@ -148,21 +136,7 @@ myApp.controller('PostsController', function($scope, UsersFactory, socket, $http
   });
 
   // for infinite scroll
-  $scope.loadMore = function(){
-    if($scope.posts){
-      start = $scope.posts.length;
-      console.log("start # of posts:", start);
-      console.log("all_posts", all_posts);
-      console.log("$scope.posts before:", $scope.posts);
-      for(var i = start; i < start + 1; i++){
-        if($scope.posts.length == all_posts.length){
-          break;
-        }
-        $scope.posts.push(all_posts[i]);
-      }
-      console.log("$scope.posts after:", $scope.posts);
-    }
-  }
+  
 
 });
 
