@@ -115,7 +115,7 @@ myApp.controller('PostsController', function($scope, UsersFactory, socket, $http
 
     console.log('sorted all_posts', all_posts);
 
-    for(var i = 0; i < 5; i++){
+    for(var i = 0; i < all_posts.length; i++){
       $scope.posts.push(all_posts[i]);
     }
     console.log("UserController $scope.posts", $scope.posts);
@@ -168,6 +168,7 @@ myApp.controller('PostsController', function($scope, UsersFactory, socket, $http
 
   // for infinite scroll
   $scope.loadMore = function(){
+
     if($scope.posts){
       start = $scope.posts.length;
       console.log("start # of posts:", start);
