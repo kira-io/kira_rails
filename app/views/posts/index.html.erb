@@ -19,7 +19,7 @@
 
 
     <div infinite-scroll='loadMore()' infinite-scroll-distance='0'>
-      <div class='post row' ng-repeat=" post in posts | orderBy:'-rank' | filter: filter_name ">
+      <div class='post row' ng-repeat=" post in posts | filter: filter_name ">
         <div class='col-sm-6 col-sm-offset-3'>
 
           <div class='post_header'>
