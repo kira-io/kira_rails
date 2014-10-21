@@ -96,6 +96,7 @@ myApp.controller('UserController', function($scope, UsersFactory){
 
 myApp.controller('PostsController', function($scope, UsersFactory, socket, $http){
   var all_posts;
+
   socket.emit('in_all_posts');
 
   UsersFactory.getPosts(function(data){
@@ -149,7 +150,12 @@ myApp.controller('PostsController', function($scope, UsersFactory, socket, $http
   };
 
   $scope.joinRoom = function(post_id) {
-    socket.emit('client:join_room', { room: post_id } )
+    var user_name;
+    $(document).ready(function(){ // 
+      user_name = $('#user_name').text();
+      console.log('user_name', user_name);
+    });
+    socket.emit('client:join_room', { room: post_id, name: user_name } ); //
   }
 
   socket.on('server:update_joys', function(data) {
