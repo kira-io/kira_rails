@@ -1,0 +1,41 @@
+<% content_for :command_one do %>
+  <a href="/posts/<%= current_user.id %>/messages"><span class="glyphicon glyphicon-envelope"></span></a>
+<% end %>
+<% content_for :command_two do %>
+  <a href="/posts"><span class="glyphicon glyphicon-globe"></span></a>
+<% end %>
+<% content_for :command_three do %>
+  <a href="/signout"><span id="logout" class="glyphicon glyphicon-log-out"></span></a>
+<% end %>
+
+<div class="row form-group">
+  <div id='edit_user_form' class="col-sm-8 col-sm-offset-2">
+    <form action="/users/<%= current_user.id %>" method="post">
+      <input type="hidden" name="_method" value="put">
+      <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+      <h3>Accout Settings: <%= @user.alias %></h3>
+      <div class='row'>
+        <p id="p-toggle" class="form-label btn-group" data-toggle="buttons">
+          <label id="kira_label" class="col-sm-6 pull-left">Do you wish to be Kira?</label>
+          <label class="btn active">
+            <input type="radio" name="kira_boolean" value="true" checked>Kira
+          </label>
+          <label class="btn">
+            <input type="radio" name="kira_boolean" value="false">Alias
+          </label>
+        </p>
+      </div>
+      <div class='row'>
+        <p class="col-sm-8 pull-left">This option allows you to have Kiras as your alias</p>
+        <p>
+          <button type="submit" class="btn btn-default pull-left">Update Account</button>
+        </p>
+      </div>
+    </form>
+    <form id="delete_user" action="/users/<%= current_user.id %>" method="post">
+      <input type="hidden" name="_method" value="delete">
+      <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+      <input class="btn btn-danger btn-large" type="submit" value="Delete Account">
+      </form>
+  </div>
+</div>

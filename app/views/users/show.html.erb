@@ -8,6 +8,10 @@
   <a href="/signout"><span id="logout" class="glyphicon glyphicon-log-out"></span></a>
 <% end %>
 
+<% if flash[:success] %>
+  <p class='messages'><%= flash[:success] %></p>
+<% end %>
+
 <div ng-app='myApp'>
   <div data-ng-controller='UserController'>
 
@@ -15,7 +19,7 @@
       <div class='col-sm-6 col-sm-offset-3'>
         <div id='user_commands'>
           <h3><a href="/entries/new"><span class="glyphicon glyphicon-pencil"></span></a></h3>
-          <h3><a href="/entries/new"><span class="glyphicon glyphicon-cog"></span></a></h3>
+          <h3><a href="/users/<%= current_user.id %>/edit"><span class="glyphicon glyphicon-cog"></span></a></h3>
         </div>
         <input id='search' type="text" class="form-control" ng-model='filter_name' placeholder="Search entries here">
       </div>

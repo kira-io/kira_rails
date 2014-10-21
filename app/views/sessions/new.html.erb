@@ -7,7 +7,10 @@
       </div>
     </div>
     <% if flash[:login_error] %>
-      <p class='error'><%= flash[:login_error] %></p>
+      <p class='messages'><%= flash[:login_error] %></p>
+    <% end %>
+    <% if flash[:success] %>
+      <p class='messages'><%= flash[:success] %></p>
     <% end %>
     <div id='login_form' class="col-sm-8 col-sm-offset-2">
       <form action="/sessions" method="post">

@@ -38,12 +38,27 @@ class UsersController < ApplicationController
   end
 
   def edit
+    @user = current_user
+    @entries = @user.entries
+    if @user.kira == true
+      @tmp_alias = "kira"
+    else
+      @tmp_alias = @user.alias
+    end
   end
 
-  def update 
+  def update
+    @user = current_user
+    @user.update(:kira => params[:kira_boolean])
+    flash[:success] = "Account successfully updated"
+    redirect_to @user
   end
 
   def destroy
+    @user = current_user
+    @user.destroy
+    flash[:success] = "User successfully deleted"
+    redirect_to "/"
   end
 
   private
