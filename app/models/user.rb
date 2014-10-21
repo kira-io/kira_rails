@@ -8,7 +8,7 @@ class User < ActiveRecord::Base
 
   email_regex = /\A([^@\s]+)@((?:[-a-z0-9]+\.)+[a-z]+)\z/i
 
-  validates :alias, presence: true, length: { :maximum => 25 }
+  validates :alias, presence: true, length: { :maximum => 25 }, uniqueness: { :case_sensitive => false }
 
   validates :email, format: { :with => email_regex }, uniqueness: { :case_sensitive => false }, allow_blank: true
 
