@@ -53,7 +53,17 @@ myApp.factory('UsersFactory', function($http, socket){
 
   factory.getPosts = function(callback){
     $http.get('/get_posts').success(function(data){
-      posts = data;
+      console.log('data from get posts', data)
+      posts = data.post;
+
+      for(i=0; i < posts.length; i++){
+        for(j=0; j < data.user.length; j++){
+          if(posts[i].id == data.user[j].post_id){
+            posts[i].clicked = true;
+          }
+        }
+      }
+      console.log('posts', posts);
       callback(posts);
     });
   }
@@ -63,7 +73,7 @@ myApp.factory('UsersFactory', function($http, socket){
     var time = Math.floor(Date.parse(d)/60000)
     for(i in posts){
       var created_at = Math.floor(Date.parse(posts[i].created_at)/60000)
-      if(time - created_at >= 400){
+      if(time - created_at >= 1){
         var post_id = posts[i].id
         posts.splice(i,1);
         socket.emit('client:limbo_room', {room_number: post_id})
@@ -108,19 +118,27 @@ myApp.controller('PostsController', function($scope, UsersFactory, socket, $http
 
     $scope.$apply();
 
-  }, 5000);
+  }, 60000);
 
   $scope.giveJoy = function(post_id) {
-    console.log('client clicked on', post_id);
+    // console.log('client clicked on', post_id);
 
-    for(var i=0; i < $scope.posts.length; i++) {
-      if($scope.posts[i].id == post_id) {
-        $scope.posts[i].joys += 1;
+    $http.post('./update_post', {post: post_id}).success(function(data){
+      if(data == 'success'){
+        console.log('success posting joy', data)
+        for(var i=0; i < $scope.posts.length; i++) {
+          if($scope.posts[i].id == post_id) {
+            $scope.posts[i].joys += 1;
+            $scope.posts[i].clicked = true;
+          }
+        }   
+        socket.emit('client:give_joy', { id: post_id });
+      } else{
+          console.log('error posting joy', data);
+          // $scope.errors = data;
       }
-    }
-
-    $http.post('./update_post', {post: post_id});
-    socket.emit('client:give_joy', { id: post_id });
+    });
+    
   };
 
   $scope.joinRoom = function(post_id) {
@@ -136,7 +154,6 @@ myApp.controller('PostsController', function($scope, UsersFactory, socket, $http
   });
 });
 
-
 myApp.controller('MessagesController', function($scope, UsersFactory){
   UsersFactory.getMessages(function(data){
     $scope.messages = data;
@@ -149,32 +166,6 @@ myApp.controller('TextAngularController', function($scope, UsersFactory){
     console.log("hello from diary post");
     console.log("diary_entry.post", $scope.diary_entry.post);
   }
-});
-
-myApp.factory('socket', function ($rootScope){
-  // var socket = io.connect("http://192.168.15.202:7777", {force_connection: true});
-  return {
-    on: function(eventName, callback) {
-      socket.on(eventName, function() {
-        var args = arguments;
-        $rootScope.$apply(function() {
-          if (callback) {
-            callback.apply(socket, args)
-          }
-        });
-      })
-    },
-    emit: function(eventName, data, callback) {
-      socket.emit(eventName, data, function (){
-        var args = arguments;
-        $rootScope.$apply(function (){
-          if(callback) {
-            callaback.apply(socket, args);
-          }
-        });
-      })
-    }
-  };
 });
 
 myApp.config(function($provide){

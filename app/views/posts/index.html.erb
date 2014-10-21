@@ -23,11 +23,16 @@
         <div class='post_header'>
           <div>
             <h3><i class='fa fa-circle {{ post.color }}'></i></h3>
-            <h3 ng-click='deletePost($index)'>{{ post.name }}, <small>FROM LOCATION</small></h3>
+            <h3>{{ post.name }}, <small>FROM LOCATION</small></h3>
             <p>{{ post.time_ago }} hours ago</p>
           </div>
           <div class='pull-right'>
-            <span ng-click="giveJoy(post.id)" class="joys glyphicon glyphicon-record"></span>
+            <div  ng-if="post.clicked == true">
+              <span style="color: yellow" ng-click="giveJoy(post.id)" class="joys glyphicon glyphicon-record"></span>
+            </div>
+            <div ng-if="post.clicked != true">
+              <span ng-click="giveJoy(post.id)" class="joys glyphicon glyphicon-record"></span>
+            </div>
             <h4>{{ post.joys }}</h4>
           </div>
         </div>
@@ -36,6 +41,10 @@
         <p class='post_content' ng-bind-html="post.content"></p>
 
       </div>
+    </div>
+    <!-- <div class='row'> -->
+    <div class='row navbar-fixed-bottom'>
+      <h1 id="joy_count" class='col-sm-12'><%= 24 - current_user.joy_counts.count %></h1>
     </div>
 
   </div>
