@@ -36,12 +36,6 @@ myApp.factory('UsersFactory', function($http, socket){
   var posts = [];
   var factory = {};
 
-
-  factory.delete_post = function(index){
-    console.log(index)
-    posts.splice(index,1)
-  }
-
   factory.getEntries = function(callback){
     console.log("MADE IT TO THE FACTORY.getEntries");
     $http.get('/entries').success(function(data){
@@ -76,6 +70,7 @@ myApp.factory('UsersFactory', function($http, socket){
       if(time - created_at >= 1){
         var post_id = posts[i].id
         posts.splice(i,1);
+
         socket.emit('client:limbo_room', {room_number: post_id})
       }
     }
