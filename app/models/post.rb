@@ -1,6 +1,6 @@
 class Post < ActiveRecord::Base
   has_many :messages
-  has_many :joy_counts
+  has_many :joy_counts, dependent: :destroy
   belongs_to :user
 
   validates :title, :content, :user, :name, presence: true

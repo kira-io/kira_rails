@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   has_many :entries
   has_many :posts
   has_many :messages
-  has_many :joy_counts
+  has_many :joy_counts, dependent: :destroy
 
   attr_accessor :password, :password_confirmation
 

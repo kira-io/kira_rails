@@ -18,7 +18,7 @@ class PostsController < ApplicationController
       end
     end
 
-    puts @current_posts
+    puts @current_posts.inspect
 
     user = current_user
 
@@ -40,9 +40,19 @@ class PostsController < ApplicationController
   def update_post
     puts params
     post = Post.find(params[:post])
-    post.joys += 1
-    post.save
-    render json: post
+    # render json: post
+    user = current_user
+    if user.joy_counts.count > 23
+      output = 'You have given the maximum amount of joys for the day'
+    elsif post.joy_counts.find_by(user: user)
+      output = 'You have already given this post a joy'
+    else
+      post.joy_counts.create(user: user)
+      post.joys += 1
+      post.save
+      output = 'success'
+    end
+    render json: output
   end
 
   def show
@@ -61,7 +71,8 @@ class PostsController < ApplicationController
 
   def get_posts
     posts = Post.all
-    render json: posts
+    user = current_user.joy_counts
+    render json: {post: posts, user: user}  
   end
 
   def get_post
