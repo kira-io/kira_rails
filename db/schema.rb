@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20141018073903) do
+ActiveRecord::Schema.define(version: 20141021043903) do
 
   create_table "entries", force: true do |t|
     t.string   "title"
@@ -23,6 +23,16 @@ ActiveRecord::Schema.define(version: 20141018073903) do
   end
 
   add_index "entries", ["user_id"], name: "index_entries_on_user_id"
+
+  create_table "joy_counts", force: true do |t|
+    t.integer  "post_id"
+    t.integer  "user_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "joy_counts", ["post_id"], name: "index_joy_counts_on_post_id"
+  add_index "joy_counts", ["user_id"], name: "index_joy_counts_on_user_id"
 
   create_table "messages", force: true do |t|
     t.text     "content"
