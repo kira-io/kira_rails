@@ -1,6 +1,26 @@
 class MessagesController < ApplicationController
   def index
     @user = current_user
+    messages = Message.all
+
+    messages.each do |message|
+      if Time.now - message.created_at > 86400
+        message.destroy
+      else
+        if Time.now - message.created_at > 72000
+          message.update(color: 'p_red')
+        elsif Time.now - message.created_at > 43200
+          message.update(color: 'p_orange')
+        end
+      end
+    end
+
+    if @user.kira == true
+      @tmp_alias = "kira"
+    else
+      @tmp_alias = @user.alias
+    end
+
   end
 
   def new
