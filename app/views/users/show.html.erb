@@ -25,7 +25,7 @@
       <div class='col-sm-6 col-sm-offset-3'>
         <div class='post_header'>
           <div>
-            <h3>{{ entry.title }}, <small>from California</small></h3>
+            <h3>{{ entry.title }} <small>{{ entry.city }}, {{ entry.country }}</small></h3>
             <p ng-bind="entry.created_at | date: 'M/d/yyyy @ H:m a'"></p>
           </div>
         </div>

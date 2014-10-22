@@ -32,3 +32,5 @@ gem 'angular-rails-templates'
 
 # recommended to use Autoprefixer with Bootstrap to add browser vendor prefixes automatically.
 gem 'autoprefixer-rails'
+
+gem "geocoder"

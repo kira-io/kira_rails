@@ -40,7 +40,6 @@ class PostsController < ApplicationController
   def update_post
     puts params
     post = Post.find(params[:post])
-    # render json: post
     user = current_user
     if user.joy_counts.count > 23
       output = 'You have given the maximum amount of joys for the day'
@@ -71,12 +70,8 @@ class PostsController < ApplicationController
 
   def get_posts
     posts = Post.all
+    location = Location.all
     user = current_user.joy_counts
-    render json: {post: posts, user: user}  
+    render json: {post: posts, user: user, location: location}  
   end
-
-  def get_post
-    fail
-  end
-
 end

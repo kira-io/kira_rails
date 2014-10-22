@@ -40,7 +40,16 @@ myApp.factory('UsersFactory', function($http, socket){
     console.log("MADE IT TO THE FACTORY.getEntries");
     $http.get('/entries').success(function(data){
       console.log('\n\n\ngetEntries() in factory = data\n\n\n: ', data);
-      entries = data;
+      
+      for(var i=0; i < data.entries.length; i++) {
+        for(var j=0; j < data.location.length; j++) {
+          if(data.entries[i].entry_location_id == data.location[j].id) {
+            data.entries[i].city = data.location[j].city;
+            data.entries[i].country = data.location[j].country;
+          }
+        }
+      }       
+      entries = data.entries;
       callback(entries);
     });
   }
@@ -57,6 +66,16 @@ myApp.factory('UsersFactory', function($http, socket){
           }
         }
       }
+
+      for(var i=0; i < posts.length; i++) {
+        for(var j=0; j < data.location.length; j++) {
+          if(posts[i].location_id == data.location[j].id) {
+            posts[i].city = data.location[j].city;
+            posts[i].country = data.location[j].country;
+          }
+        }
+      }  
+
       console.log('posts', posts);
       callback(posts);
     });
@@ -98,13 +117,15 @@ myApp.controller('PostsController', function($scope, UsersFactory, socket, $http
   socket.emit('in_all_posts');
 
   UsersFactory.getPosts(function(data){
+    console.log('data', data);
     $scope.posts = [];
     for (var i=0; i< data.length; i++) {
       var total = Math.floor((Date.parse(new Date()) - Date.parse(data[i].created_at)) / 3600000 + data[i].joys);
       data[i].rank = total;
       data[i].time_ago = Math.floor((Date.parse(new Date()) - Date.parse(data[i].created_at))/ 3600000);
     };
-    all_posts = data;
+    all_posts = data;  
+
     console.log('originial all_posts', all_posts);
 
     all_posts.sort(function(one,two){
@@ -124,6 +145,10 @@ myApp.controller('PostsController', function($scope, UsersFactory, socket, $http
     for(var i = 0; i < post_array_create_length; i++){
       $scope.posts.push(all_posts[i]);
     }
+
+
+
+
     console.log("UserController $scope.posts", $scope.posts);
   });
 

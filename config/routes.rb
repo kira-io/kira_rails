@@ -9,7 +9,6 @@ Rails.application.routes.draw do
   # posts
   get "/get_posts" => "posts#get_posts"
   post "/update_post" => "posts#update_post"
-  get "/get_post" => "posts#get_post"
   # messages
   get "/get_messages" => "messages#get_messages"
 

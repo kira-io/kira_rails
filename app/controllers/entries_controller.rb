@@ -1,12 +1,8 @@
 class EntriesController < ApplicationController
   def index
-    puts "in index"
-    user = current_user
-    entries = user.entries
-    puts "\n\n\nentries\n\n\n"
-    puts entries.inspect
-
-    render json: entries
+    entries = current_user.entries
+    entry_location = EntryLocation.all
+    render json: { entries: entries, location: entry_location }
   end
 
   def new
@@ -22,12 +18,16 @@ class EntriesController < ApplicationController
 
   def create
     @user = current_user
-    @entry = @user.entries.new(entry_params)
+    location = "89.238.130.247" #=> need to test this. localhost gives us nil. only when its live?
+    @location = Location.create(:ip_address => location)
+    @entry_location = EntryLocation.create(:ip_address => location)
+    @entry = @user.entries.new(title: params[:entry][:title], content: params[:entry][:content], entry_location: @entry_location)
 
     if @user.kira == true
-      @post = @user.posts.create(title: params[:entry][:title], content: params[:entry][:content], name: "kira")    
+      @post = @user.posts.create(title: params[:entry][:title], content: params[:entry][:content], name: "kira", location: @location)  
+
     else
-      @post = @user.posts.create(title: params[:entry][:title], content: params[:entry][:content], name: @user.alias)     
+      @post = @user.posts.create(title: params[:entry][:title], content: params[:entry][:content], name: @user.alias, location: @location)     
     end
 
     if @entry.save
