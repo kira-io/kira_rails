@@ -18,7 +18,7 @@ class EntriesController < ApplicationController
 
   def create
     @user = current_user
-    location = "89.238.130.247" #=> need to test this. localhost gives us nil. only when its live?
+    location = "89.238.130.247" #=> request.remote_ip for production
     @location = Location.create(:ip_address => location)
     @entry_location = EntryLocation.create(:ip_address => location)
     @entry = @user.entries.new(title: params[:entry][:title], content: params[:entry][:content], entry_location: @entry_location)

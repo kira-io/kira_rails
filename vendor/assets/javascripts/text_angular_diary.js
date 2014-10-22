@@ -86,7 +86,7 @@ myApp.factory('UsersFactory', function($http, socket){
     var time = Math.floor(Date.parse(d)/60000)
     for(i in posts){
       var created_at = Math.floor(Date.parse(posts[i].created_at)/60000)
-      if(time - created_at >= 1){
+      if(time - created_at >= 1440){
         var post_id = posts[i].id
         posts.splice(i,1);
 
