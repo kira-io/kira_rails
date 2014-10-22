@@ -19,6 +19,9 @@
   text-align: center;
   a {
     color: black;
+    &:hover {
+      color: #eee;
+    }
   }
   h3 {
     display: inline-block;

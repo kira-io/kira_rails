@@ -114,7 +114,7 @@ myApp.controller('PostsController', function($scope, UsersFactory, socket, $http
     console.log('sorted all_posts', all_posts);
 
     var post_array_create_length = 0;
-    
+
     if(all_posts.length > 5){
       post_array_create_length = 5;
     } else {
@@ -145,19 +145,21 @@ myApp.controller('PostsController', function($scope, UsersFactory, socket, $http
             $scope.posts[i].joys += 1;
             $scope.posts[i].clicked = true;
           }
-        }   
+        }
         socket.emit('client:give_joy', { id: post_id });
+        var joy_count = document.getElementById('joy_count');
+        joy_count.innerHTML = parseInt(joy_count.innerHTML) - 1;
       } else{
           console.log('error posting joy', data);
           // $scope.errors = data;
       }
     });
-    
+
   };
 
   $scope.joinRoom = function(post_id) {
     var user_name;
-    $(document).ready(function(){ // 
+    $(document).ready(function(){ //
       user_name = $('#user_name').text();
       console.log('user_name', user_name);
     });
@@ -182,6 +184,9 @@ myApp.controller('PostsController', function($scope, UsersFactory, socket, $http
       console.log("$scope.posts before:", $scope.posts);
       for(var i = start; i < start + 1; i++){
         if($scope.posts.length == all_posts.length){
+          break;
+        }
+        if(all_posts[i] == undefined) {
           break;
         }
         $scope.posts.push(all_posts[i]);
