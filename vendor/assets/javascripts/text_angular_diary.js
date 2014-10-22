@@ -82,7 +82,6 @@ myApp.factory('UsersFactory', function($http, socket){
       callback(messages);
     });
   }
-
   return factory;
 });
 
@@ -91,7 +90,6 @@ myApp.controller('UserController', function($scope, UsersFactory){
     $scope.entries = data;
     console.log("UserController $scope.entries", $scope.entries);
   });
-
 });
 
 myApp.controller('PostsController', function($scope, UsersFactory, socket, $http){

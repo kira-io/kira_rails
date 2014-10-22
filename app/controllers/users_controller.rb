@@ -50,8 +50,7 @@ class UsersController < ApplicationController
   def update
     @user = current_user
     @user.update(:kira => params[:kira_boolean])
-    flash[:success] = "Account successfully updated"
-    redirect_to @user
+    render json: {:message => "Account successfully updated"}
   end
 
   def destroy

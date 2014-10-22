@@ -8,10 +8,6 @@
   <a href="/signout"><span id="logout" class="glyphicon glyphicon-log-out"></span></a>
 <% end %>
 
-<% if flash[:success] %>
-  <p class='messages'><%= flash[:success] %></p>
-<% end %>
-
 <div ng-app='myApp'>
   <div data-ng-controller='UserController'>
 
