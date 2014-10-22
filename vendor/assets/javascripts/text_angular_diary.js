@@ -188,6 +188,9 @@ myApp.controller('PostsController', function($scope, UsersFactory, socket, $http
         if($scope.posts.length == all_posts.length){
           break;
         }
+        if(all_posts[i] == undefined) {
+          break;
+        }
         $scope.posts.push(all_posts[i]);
       }
       console.log("$scope.posts after:", $scope.posts);
