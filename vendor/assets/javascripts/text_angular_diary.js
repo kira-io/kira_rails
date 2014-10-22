@@ -105,10 +105,59 @@ myApp.factory('UsersFactory', function($http, socket){
 });
 
 myApp.controller('UserController', function($scope, UsersFactory){
+  var all_entries;
+
   UsersFactory.getEntries(function(data){
-    $scope.entries = data;
+    console.log('getEntries data', data);
+    $scope.entries = [];
+
+    all_entries = data;  
+
+    console.log('originial all_entries', all_entries);
+
+    all_entries.sort(function(one,two){
+      return two.id - one.id;
+    });
+
+    console.log('sorted all_entries', all_entries);
+
+    var entry_array_create_length = 0;
+
+    if(all_entries.length > 5){
+      entry_array_create_length = 5;
+    } else {
+      entry_array_create_length = all_entries.length;
+    }
+
+    for(var i = 0; i < entry_array_create_length; i++){
+      $scope.entries.push(all_entries[i]);
+    }
+
     console.log("UserController $scope.entries", $scope.entries);
   });
+
+
+  // for infinite scroll
+  $scope.loadMore = function(){
+    if($scope.entries){
+      start = $scope.entries.length;
+      console.log("start # of entries:", start);
+      console.log("all_entries", all_entries);
+      console.log("$scope.entries before:", $scope.entries);
+      for(var i = start; i < start + 1; i++){
+        if($scope.entries.length == all_entries.length){
+          break;
+        }
+        if(all_entries[i] == undefined) {
+          break;
+        }
+        $scope.entries.push(all_entries[i]);
+      }
+      console.log("$scope.entries after:", $scope.entries);
+    }
+  }
+
+
 });
 
 myApp.controller('PostsController', function($scope, UsersFactory, socket, $http){
@@ -117,7 +166,7 @@ myApp.controller('PostsController', function($scope, UsersFactory, socket, $http
   socket.emit('in_all_posts');
 
   UsersFactory.getPosts(function(data){
-    console.log('data', data);
+    console.log('getPosts data', data);
     $scope.posts = [];
     for (var i=0; i< data.length; i++) {
       var total = Math.floor((Date.parse(new Date()) - Date.parse(data[i].created_at)) / 3600000 + data[i].joys);
@@ -146,10 +195,7 @@ myApp.controller('PostsController', function($scope, UsersFactory, socket, $http
       $scope.posts.push(all_posts[i]);
     }
 
-
-
-
-    console.log("UserController $scope.posts", $scope.posts);
+    console.log("PostsController $scope.posts", $scope.posts);
   });
 
   setInterval(function(){

@@ -21,15 +21,17 @@
       </div>
     </div>
 
-    <div class="post row" ng-repeat=" entry in entries | filter: filter_name | orderBy: 'created_at':true ">
-      <div class='col-sm-6 col-sm-offset-3'>
-        <div class='post_header'>
-          <div>
-            <h3>{{ entry.title }} <small>{{ entry.city }}, {{ entry.country }}</small></h3>
-            <p ng-bind="entry.created_at | date: 'M/d/yyyy @ H:m a'"></p>
+    <div infinite-scroll='loadMore()' infinite-scroll-distance='0'>
+      <div class="post row" ng-repeat=" entry in entries | filter: filter_name | orderBy: 'created_at':true track by $index ">
+        <div class='col-sm-6 col-sm-offset-3'>
+          <div class='post_header'>
+            <div>
+              <h3>{{ entry.title }} <small>{{ entry.city }}, {{ entry.country }}</small></h3>
+              <p ng-bind="entry.created_at | date: 'M/d/yyyy @ H:m a'"></p>
+            </div>
           </div>
+          <p class='post_content' ng-bind-html="entry.content"></p>
         </div>
-        <p class='post_content' ng-bind-html="entry.content"></p>
       </div>
     </div>
 
