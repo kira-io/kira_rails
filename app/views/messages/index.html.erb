@@ -13,8 +13,9 @@
     <div class='post row' ng-repeat=" message in messages | filter: filter_name ">
       <div class='col-sm-8 col-sm-offset-2'>
         <div class='post_header'>
-          <p ng-bind-html="message.content"></p>
+          <h3><i class='fa fa-circle {{ message.color }}'></i></h3>
         </div>
+        <p ng-bind-html="message.content"></p>
       </div>
     </div>
   </div>
