@@ -19,11 +19,9 @@ class MessagesController < ApplicationController
     @message = @user.messages.new(content: params[:post][:content], post: @post)
 
     if @message.save
-      redirect_to "/posts/#{@post.id}"
+      render json: @message
     else
-      flash[:errors] = @message.errors.full_messages
-      #sent content from message if validation fails back to message#new
-      redirect_to new_post_message_path(:content => params[:post][:content])
+      render json: 'error'
     end
   end
 

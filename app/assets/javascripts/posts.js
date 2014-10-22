@@ -1,26 +1,33 @@
-var socket = io.connect("http://192.168.15.228:7777", {force_connection: true});
+var socket = io.connect("http://192.168.15.127:7777", {force_connection: true});
 
 var room_number = 0;
 var user_name = 'kira';
 $(document).ready(function(){
   user_name = $('#user_name').text();
   socket.emit('client:send_user_name', {name: user_name})
-
   socket.on('server:user_name', function(data){
     user_name = data.name
-  }); 
+  });
 });
 
-$(document).on('submit', 'form', function(){
-  
+$(document).on('submit', '.chat_form', function(){
   console.log($('#message').val().replace(/(<([^>]+)>)/ig,""));
   var message = $('#message').val().replace(/(<([^>]+)>)/ig,"");
   room_number = $(this).attr('id');
-
   socket.emit('client:emit_message', {room: room_number, name: user_name, message: message});
-
   $('#message').val('');
   return false;
+});
+
+$(document).on('submit', '#message_box', function(){
+  $.post($(this).attr('action'), $(this).serialize(), function(data){
+    $('#message_box').hide();
+  }, 'json');
+  return false;
+});
+
+$(document).on('click', 'button#pm', function(){
+  $('#message_box').toggle();
 });
 
 socket.emit('disconnect', {room: room_number});
