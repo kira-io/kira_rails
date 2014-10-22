@@ -11,8 +11,8 @@
 
 <div class='row'>
   <div id='timer' class='col-sm-6 col-sm-offset-4'>
-    <div id="countdown1" class="countdownHolder"></div> 
-    <div id="created_at" data-created='<%= @post.created_at %>'><%= @post.created_at %></div> 
+    <div id="countdown1" class="countdownHolder"></div>
+    <div id="created_at" data-created='<%= @post.created_at %>'><%= @post.created_at %></div>
     <div id='count_down_message'><h3>You are now in limbo</h3></div>
   </div>
 </div>
@@ -27,10 +27,18 @@
   </div>
   <div class='col-sm-6'>
     <div class='limbo<%= @post.id %>' id='chat_room'></div>
-    <form id='<%= @post.id %>'>
+    <form class='chat_form' id='<%= @post.id %>'>
       <input id='message' type='text' class='form-control' name='message'>
     </form>
   </div>
 </div>
-<%= link_to "Write #{@post.name} a message", new_post_message_path(@post) %>
+<div class='col-sm-6' ng-app='myApp' ng-controller='TextAngularController'>
+  <button id='pm'>private message</button>
+  <form id='message_box' style='display:none' action="/posts/<%= @post.id %>/messages" method="post">
+    <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+    <p>Message To: <%= @post.name %></p>
+    <text-angular name='post[content]' data-ng-model='diary_entry.post' ta-toolbar="[['bold','italics','underline', 'clear'],['colorGold', 'colorOrange', 'colorRed', 'colorBlue', 'colorLime', 'colorBlack', 'colorGray']]"></text-angular>
+    <input type="submit" value="Submit">
+  </form>
+</div>
 
