@@ -1,8 +1,12 @@
 <% content_for :command_one do %>
-  <a href="/posts/<%= current_user.id %>/messages"><span class="glyphicon glyphicon-envelope"></span></a>
+  <a href="/posts"><span class="glyphicon glyphicon-globe"></span></a>
 <% end %>
 <% content_for :command_two do %>
-  <a href="/posts"><span class="glyphicon glyphicon-globe"></span></a>
+  <% if current_user.message_seen? %>
+    <a href="/posts/<%= current_user.id %>/messages"><span class="glyphicon glyphicon-envelope"></span></a>
+  <% else %>
+    <a href="/posts/<%= current_user.id %>/messages"><span style="color:orange" class="glyphicon glyphicon-envelope"></span></a>
+  <% end %>
 <% end %>
 <% content_for :command_three do %>
   <a href="/signout"><span id="logout" class="glyphicon glyphicon-log-out"></span></a>

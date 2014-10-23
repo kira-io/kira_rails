@@ -38,8 +38,11 @@ $(document).on('submit', '.chat_form', function(){
 $(document).on('submit', '#message_box', function(){
   $.post($(this).attr('action'), $(this).serialize(), function(data){
     $('#message_box').hide();
+    console.log('The user I sent the message to', data);
+    socket.emit('client:message_sent_to', {user_id: data.id});
   }, 'json');
   return false;
+
 });
 
 $(document).on('click', 'button#pm', function(){

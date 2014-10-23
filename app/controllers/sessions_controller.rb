@@ -9,6 +9,9 @@ class SessionsController < ApplicationController
       redirect_to root_url
     else
       sign_in user
+      if user.messages.count == 0
+        user.message_seen = true
+      end
       redirect_to user
     end
   end

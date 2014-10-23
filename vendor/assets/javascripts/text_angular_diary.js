@@ -60,8 +60,8 @@ myApp.factory('UsersFactory', function($http, socket){
       posts = data.post;
 
       for(i=0; i < posts.length; i++){
-        for(j=0; j < data.user.length; j++){
-          if(posts[i].id == data.user[j].post_id){
+        for(j=0; j < data.joy_count.length; j++){
+          if(posts[i].id == data.joy_count[j].post_id){
             posts[i].clicked = true;
           }
         }
@@ -77,7 +77,7 @@ myApp.factory('UsersFactory', function($http, socket){
       }  
 
       console.log('posts', posts);
-      callback(posts);
+      callback(posts, data.user);
     });
   }
 
@@ -165,8 +165,17 @@ myApp.controller('PostsController', function($scope, UsersFactory, socket, $http
 
   socket.emit('in_all_posts');
 
-  UsersFactory.getPosts(function(data){
+  socket.on('server:message_sent_to', function(data){
+    if ($scope.user_id == data.user_id) {
+      var message_icon = document.getElementById('message_icon');
+      var current_user = $scope.user_id;
+      message_icon.innerHTML = "<a href='/posts/" + current_user + "/messages'><span style='color:orange' class='glyphicon glyphicon-envelope'></span></a>";
+    }
+  });
+
+  UsersFactory.getPosts(function(data, data2){
     console.log('getPosts data', data);
+    $scope.user_id = data2;
     $scope.posts = [];
     for (var i=0; i< data.length; i++) {
       var total = Math.floor((Date.parse(new Date()) - Date.parse(data[i].created_at)) / 3600000 + data[i].joys);

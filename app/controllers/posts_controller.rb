@@ -71,7 +71,9 @@ class PostsController < ApplicationController
   def get_posts
     posts = Post.all
     location = Location.all
-    user = current_user.joy_counts
-    render json: {post: posts, user: user, location: location}  
+    joy_count = current_user.joy_counts
+    user = current_user.id
+
+    render json: {post: posts, joy_count: joy_count, user: user, location: location}  
   end
 end
