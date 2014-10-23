@@ -1,15 +1,19 @@
 <% content_for :command_one do %>
-  <a href="/users/<%= current_user.id %>"><span class="glyphicon glyphicon-user"></span></a>
+  <a class='leave_room_to_user' data-user-id='<%= current_user.id %>' href=""><span class="glyphicon glyphicon-user"></span></a>
+  <!-- <a href="/users/<%= current_user.id %>"><span class="glyphicon glyphicon-user"></span></a> -->
 <% end %>
 <% content_for :command_two do %>
-  <a href="/posts"><span class="glyphicon glyphicon-globe"></span></a>
+  <a class='leave_room_to_posts' href=""><span class="glyphicon glyphicon-globe"></span></a>
+  <!-- <a href="/posts"><span class="glyphicon glyphicon-globe"></span></a> -->
 <% end %>
 <% content_for :command_three do %>
-  <a href="/signout"><span id="logout" class="glyphicon glyphicon-log-out"></span></a>
+  <a class='leave_room_to_logout' href=""><span id="logout" class="glyphicon glyphicon-log-out"></span></a>
+  <!-- <a href="/signout"><span id="logout" class="glyphicon glyphicon-log-out"></span></a> -->
 <% end %>
 
 
 <div class='row'>
+  <a  class='leave_room_to_posts btn btn-default pull-right' href=''>Leave Chat Room</a>
   <div id='timer' class='col-sm-6 col-sm-offset-4'>
     <div id="countdown1" class="countdownHolder"></div>
     <div id="created_at" data-created='<%= @post.created_at %>'><%= @post.created_at %></div>
