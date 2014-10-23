@@ -1,30 +1,37 @@
-var socket = io.connect("http://192.168.15.228:7777", {force_connection: true});
+var socket = io.connect("http://192.168.15.202:7777", {force_connection: true});
 
 var room_number = 0;
 var user_name = 'kira';
 var user_id;
-
+var socket_id;
 $(document).ready(function(){
   user_name = $('#user_name').text();
   user_id = $('.leave_room_to_user').attr('data-user-id');
   room_number = $('.chat_form').attr('id');
   socket.emit('client:send_user_name', {name: user_name, id: user_id})
-  // socket.emit('client:send_user_name', {name: user_name})
 
-  // socket.on('server:user_name', function(data){
-  //   user_name = data.name
-  // });
   socket.on('server:user_name', function(data){
     console.log('SERVER:USER NAME', data)
     user_name = data.name;
     user_id = data.id;
-    // socket.emit('room_count', {room: room_number, name: user_name})
+    socket_id = data.socket_id;
   }); 
+  socket.emit('room_count', {room: room_number})
 });
 
-// $('#post').load(function(){
-//   console.log("#POST.LOAD") 
-// })
+socket.on('room_count1', function(data){
+  console.log("ROOMCOUNT DATA", data) 
+  var num_users = data.num_users;
+  num += 1000;
+  if(num_users == 0){
+    num_users++;
+  }
+  if(num_users == 1){
+    $('#chat_room').append("<p style='text-align: center;'>There is " + num_users +" user in the room.</p>").scrollTop(num)
+  }else{
+    $('#chat_room').append("<p style='text-align: center;'>There are " + num_users +" users in the room.</p>").scrollTop(num)
+  }
+});
 
 $(document).on('submit', '.chat_form', function(){
   console.log($('#message').val().replace(/(<([^>]+)>)/ig,""));
@@ -37,6 +44,11 @@ $(document).on('submit', '.chat_form', function(){
 
 $(document).on('submit', '#message_box', function(){
   $.post($(this).attr('action'), $(this).serialize(), function(data){
+    console.log("DATA--",data);
+    $('#errors').html('');
+    for(i in data){
+      $('#errors').append("<p>" + data[i] + ".</p>");
+    }
     $('#message_box').hide();
   }, 'json');
   return false;
@@ -51,17 +63,22 @@ socket.emit('disconnect', {room: room_number});
 socket.on('server:expired_room', function (data){
   $('.limbo' + data.room_num).css('background-color', 'silver')
   console.log('.limbo + roomnumber', data.room_num)
-})
-
-socket.on('server:incoming_message', function(data){
-  console.log("INCOMING MESSAGE", data.name, data.message);
-  $('#chat_room').append("<p>" + data.name + ": " + data.message + "</p>");
 });
+
+var num = 1000;
+socket.on('server:incoming_message', function(data){
+  num += 1000;
+  console.log('num', num)
+  console.log("INCOMING MESSAGE", data.name, data.message);
+  $('#chat_room').append("<p><strong>" + data.name + ":</strong> " + data.message + "</p>").scrollTop(num);
+});
+
 socket.on('server:new_user', function(data){
+  num += 1000;
   if(data.num_users == 1){
-    $('#chat_room').append("<p style='text-align: center'>" + data.name + " has joined the room.</p><p style='text-align: center'>There is " + data.num_users + " user in the room.</p>");
+    $('#chat_room').append("<p style='text-align: center;'>" + data.name + " has joined the room.</p><p style='text-align: center'>There is " + data.num_users + " user in the room.</p>").scrollTop(num);
   } else{
-    $('#chat_room').append("<p style='text-align: center'>" + data.name + " has joined the room.</p><p style='text-align: center'>There are " + data.num_users + " users in the room.</p>");
+    $('#chat_room').append("<p style='text-align: center'>" + data.name + " has joined the room.</p><p style='text-align: center'>There are " + data.num_users + " users in the room.</p>").scrollTop(num);
   }
 });
 
@@ -85,16 +102,17 @@ $(document).on('click', '.leave_room_to_logout', function(){
 });
 
 socket.on('server:client_exit', function(data){
+  num += 1000;
   console.log('server:client_exit', data)
   if(data.num_users == 1){
-    $('#chat_room').append("<p style='text-align: center'>" + data.name + " has left the room.</p><p style='text-align: center'>There is " + data.num_users + " user in the room.</p>");
+    $('#chat_room').append("<p style='text-align: center'>" + data.name + " has left the room.</p><p style='text-align: center'>There is " + data.num_users + " user in the room.</p>").scrollTop(num);
   } else{
-    $('#chat_room').append("<p style='text-align: center'>" + data.name + " has left the room.</p><p style='text-align: center'>There are " + data.num_users + " users in the room.</p>");
+    $('#chat_room').append("<p style='text-align: center'>" + data.name + " has left the room.</p><p style='text-align: center'>There are " + data.num_users + " users in the room.</p>").scrollTop(num);
   }
 });
 
 $(window).load(function(){
-  room_number = $('form').attr('id');
+  room_number = $('.chat_form').attr('id');
   console.log('user has refreshed paged');
   console.log('room_number', room_number);
   socket.emit('client:join_room_from_reload', {name: user_name, room: room_number}); 

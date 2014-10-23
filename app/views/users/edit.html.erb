@@ -13,14 +13,14 @@
     <form id="user_edit" action="/users/<%= current_user.id %>" method="post">
       <input type="hidden" name="_method" value="put">
       <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
-      <h3 class="pull-left">Accout Settings: <%= @user.alias %></h3>
+      <h3 class="pull-left page-header">Accout Settings: <%= @user.alias %></h3>
       <div class='row'>
         <p id="p-toggle" class="form-label btn-group" data-toggle="buttons">
           <label id="kira_label" class="col-sm-6 pull-left">Do you wish to be Kira?</label>
         </p>
         <p>
-            <label class="alias btn btn-sm">
-              <input type="radio" name="kira_boolean" value="true">Kira
+            <label class="alias btn btn-med">
+              <input type="radio" name="kira_boolean" value="true">kira
             </label>
             <label class="alias btn btn-sm">
               <input type="radio" name="kira_boolean" value="false"><%= @user.alias %>
@@ -28,13 +28,13 @@
         </p>
       </div>
       <div class='row'>
-        <p id="desc" class="col-sm-8">This option allows you to have Kiras as your alias</p>
+        <p id="desc" class="col-sm-8">This option allows you to have Kira as your alias.</p>
       </div>
     </form>
     <form id="delete_user" action="/users/<%= current_user.id %>" method="post">
       <input type="hidden" name="_method" value="delete">
       <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
-      <input id="delete_button" class="btn btn-sm" type="submit" value="Delete Account">
-      </form>
+      <input id="delete_button" class="btn btn-med" type="submit" value="Delete Account">
+    </form>
   </div>
 </div>

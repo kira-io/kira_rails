@@ -39,9 +39,11 @@ class MessagesController < ApplicationController
     @message = @user.messages.new(content: params[:post][:content], post: @post)
 
     if @message.save
-      render json: @message
+      @success = {:success => "Message has been successfully sent"}
+      render json: @success
     else
-      render json: 'error'
+      @errors = @message.errors.full_messages
+      render json: @errors
     end
   end
 

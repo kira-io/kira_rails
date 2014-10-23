@@ -11,4 +11,11 @@ $(document).ready(function(){
       }
     });
   });
+  $("#delete_user").click('submit', function(){
+    var del_confirm = confirm("Are you sure you want to delete your account?");
+    if(del_confirm){
+      $(this).submit();
+    }
+    return false;
+  });
 });

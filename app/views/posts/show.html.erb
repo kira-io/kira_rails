@@ -13,36 +13,51 @@
 
 
 <div class='row'>
-  <a  class='leave_room_to_posts btn btn-default pull-right' href=''>Leave Chat Room</a>
-  <div id='timer' class='col-sm-6 col-sm-offset-4'>
+ 
+  <% if @errors 
+    @errors.each do |error| %>
+  <p> <%= error %></p>
+  <% end 
+  end%>
+<!--   <div id='timer' class='col-sm-6 col-sm-offset-4'>
     <div id="countdown1" class="countdownHolder"></div>
     <div id="created_at" data-created='<%= @post.created_at %>'><%= @post.created_at %></div>
     <div id='count_down_message'><h3>You are now in limbo</h3></div>
-  </div>
+  </div> -->
 </div>
-
-<div class='row'>
-  <div id='post' class='limbo<%= @post.id %> col-sm-6'>
-    <div id='post_header'>
-      <h3><i class='fa fa-circle <%= @post.color %>'></i></h3>
-      <h3><%= @post.name %>, <small>from California</small></h3>
-    </div>
-    <p class='post_content'><%= (word_wrap @post.content).html_safe %></p>
+<div id='post_test' class='row'>
+  <div id='leave_chat' class='row'>
+    <a class='leave_room_to_posts btn btn-default col-sm-3 pull-left' href=''><span style='color: silver' class='glyphicon glyphicon-chevron-left'></span> Leave Chat Room</a>
   </div>
+  <div class='col-sm-6'>
+    <div class='row'>
+      <div id='post' class='limbo<%= @post.id %>'>
+        <div id='post_header'>
+          <h3><i class='fa fa-circle <%= @post.color %>'></i></h3>
+          <h3><%= @post.name %>, <small>from California</small></h3>
+        </div>
+        <p class='post_content'><%= (word_wrap @post.content).html_safe %></p>
+      </div>
+
+      <div ng-app='myApp' ng-controller='TextAngularController'>
+        <button class='btn btn-default' id='pm'>Private Message</button>
+        <form id='message_box' style='display:none' action="/posts/<%= @post.id %>/messages" method="post">
+          <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
+          <p>Message To: <%= @post.name %></p>
+          <text-angular name='post[content]' data-ng-model='diary_entry.post' ta-toolbar="[['bold','italics','underline', 'clear'],['colorGold', 'colorOrange', 'colorRed', 'colorBlue', 'colorLime', 'colorBlack', 'colorGray']]"></text-angular>
+          <input class='btn btn-default' type="submit" value="Send Message">
+        </form>
+      </div>
+    </div>
+  </div>
+
   <div class='col-sm-6'>
     <div class='limbo<%= @post.id %>' id='chat_room'></div>
     <form class='chat_form' id='<%= @post.id %>'>
       <input id='message' type='text' class='form-control' name='message'>
     </form>
+    <div id='errors'></div>
   </div>
 </div>
-<div class='col-sm-6' ng-app='myApp' ng-controller='TextAngularController'>
-  <button id='pm'>private message</button>
-  <form id='message_box' style='display:none' action="/posts/<%= @post.id %>/messages" method="post">
-    <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
-    <p>Message To: <%= @post.name %></p>
-    <text-angular name='post[content]' data-ng-model='diary_entry.post' ta-toolbar="[['bold','italics','underline', 'clear'],['colorGold', 'colorOrange', 'colorRed', 'colorBlue', 'colorLime', 'colorBlack', 'colorGray']]"></text-angular>
-    <input type="submit" value="Submit">
-  </form>
-</div>
+
 
