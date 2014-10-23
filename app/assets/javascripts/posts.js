@@ -50,8 +50,11 @@ $(document).on('submit', '#message_box', function(){
       $('#errors').append("<p>" + data[i] + ".</p>");
     }
     $('#message_box').hide();
+    console.log('The user I sent the message to', data);
+    socket.emit('client:message_sent_to', {user_id: data.user.id});
   }, 'json');
   return false;
+
 });
 
 $(document).on('click', 'button#pm', function(){

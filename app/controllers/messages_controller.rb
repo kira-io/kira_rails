@@ -1,6 +1,7 @@
 class MessagesController < ApplicationController
   def index
     @user = current_user
+    @user.update(:message_seen => true)
     messages = Message.all
 
     messages.each do |message|
@@ -36,11 +37,11 @@ class MessagesController < ApplicationController
   def create
     @post = Post.find(params[:post_id])
     @user = @post.user
+    @user.update(:message_seen => "false")
     @message = @user.messages.new(content: params[:post][:content], post: @post)
 
     if @message.save
-      @success = {:success => "Message has been successfully sent"}
-      render json: @success
+      render json: {:user => @user, :success => "Message has been successfully sent"}
     else
       @errors = @message.errors.full_messages
       render json: @errors
