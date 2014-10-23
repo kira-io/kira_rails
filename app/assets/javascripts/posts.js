@@ -1,4 +1,4 @@
-var socket = io.connect("http://192.168.15.202:7777", {force_connection: true});
+var socket = io.connect("http://192.168.15.127:7777", {force_connection: true});
 
 var room_number = 0;
 var user_name = 'kira';
@@ -46,8 +46,12 @@ $(document).on('submit', '#message_box', function(){
   $.post($(this).attr('action'), $(this).serialize(), function(data){
     console.log("DATA--",data);
     $('#errors').html('');
-    for(i in data){
-      $('#errors').append("<p>" + data[i] + ".</p>");
+    if(data.user) {
+      $('#errors').append("<p>" + data.success + ".</p>");
+    } else {
+      for(i in data){
+        $('#errors').append("<p>" + data[i] + ".</p>");
+      }
     }
     $('#message_box').hide();
     console.log('The user I sent the message to', data);

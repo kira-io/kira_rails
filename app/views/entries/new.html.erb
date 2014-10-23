@@ -10,14 +10,23 @@
 
 <div ng-app='myApp' ng-controller='TextAngularController' class='row'>
   <div class='col-sm-6 col-sm-offset-3'>
+    <% if flash[:errors] %>
+      <% flash[:errors].each do |error| %>
+        <p class='messages'><%= error %></p>
+      <% end %>
+    <% end %>
     <form action='/entries' method='post'>
       <input name="authenticity_token" value="<%= form_authenticity_token %>" type="hidden">
       <p>
         <label>Title</label>
-        <input type='text' name='entry[title]' />
+        <input id='search' name='entry[title]' type="text" class="form-control" placeholder="Enter title here (required)" autofocus>
       </p>
-      <text-angular name='entry[content]' data-ng-model='diary_entry.post' ta-toolbar="[['h1','h2','h3','h4','h5','h6','p','pre'], ['justifyLeft','justifyCenter','justifyRight','indent','outdent', 'ul', 'ol'],['bold','italics','underline', 'clear'],['colorGold', 'colorOrange', 'colorRed', 'colorFuchsia', 'colorPurple', 'colorMaroon', 'colorNavy', 'colorBlue', 'colorAqua', 'colorLime', 'colorGreen', 'colorOlive', 'colorBlack', 'colorGray', 'colorSilver']]"></text-angular>
-      <input type="submit" value="Submit">
+      <text-angular name='entry[content]' data-ng-model='diary_entry.post' ta-toolbar="[['h1','h2','h3','h4','h5','h6','p','pre'], ['justifyLeft','justifyCenter','justifyRight','indent','outdent', 'ul', 'ol'],['bold','italics','underline', 'clear'],['colorGold', 'colorOrange', 'colorRed', 'colorFuchsia', 'colorPurple', 'colorMaroon', 'colorNavy', 'colorBlue', 'colorAqua', 'colorLime', 'colorGreen', 'colorOlive', 'colorBlack', 'colorGray', 'colorSilver']]">
+      <% if @content %>
+        <%= @content.html_safe %>
+      <% end %>
+      </text-angular>
+      <input class="pull-right btn btn-default" type="submit" value="Submit">
     </form>
   </div>
 </div>

@@ -31,7 +31,7 @@ class EntriesController < ApplicationController
     end
 
     if @entry.save
-      redirect_to "/users/#{@user.id}"
+      redirect_to "/posts"
     else
       flash[:errors] = @entry.errors.full_messages
       #sent content from entry if validation fails back to entry#new
