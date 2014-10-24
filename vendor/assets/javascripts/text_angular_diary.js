@@ -116,7 +116,7 @@ myApp.controller('UserController', function($scope, UsersFactory){
     console.log('originial all_entries', all_entries);
 
     all_entries.sort(function(one,two){
-      return two.id - one.id;
+      return one.id - two.id;
     });
 
     console.log('sorted all_entries', all_entries);

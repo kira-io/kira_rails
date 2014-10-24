@@ -1,3 +1,5 @@
+require 'json'
+
 class SessionsController < ApplicationController
   def new
   end
@@ -19,5 +21,10 @@ class SessionsController < ApplicationController
   def destroy
     reset_session
     redirect_to "/signin"
+  end
+
+  def world
+    @locations = Location.all.to_json
+    @location_array = JSON[@locations]
   end
 end

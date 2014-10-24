@@ -76,4 +76,10 @@ class PostsController < ApplicationController
 
     render json: {post: posts, joy_count: joy_count, user: user, location: location}  
   end
+
+  def location_json
+    @locations = Location.all
+    render json: @locations
+  end
+
 end
