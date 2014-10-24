@@ -63,7 +63,13 @@ font {
   margin-top:10px;
   margin-top: 10px;
   margin-bottom: 10px;
-  font-size: 1.4em
+  font-size: 1.4em;
+  color: black;
+  text-decoration: underline;
+  text-align: center;
+  &:hover {
+    color: #eee;
+  }
 }
 
 .post_content {

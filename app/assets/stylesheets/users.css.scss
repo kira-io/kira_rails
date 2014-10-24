@@ -6,6 +6,21 @@
   margin-left: 135px;
 }
 
+#around_the_world {
+  text-align: center;
+  h1 {
+    margin-bottom: 20px;
+  }
+  button {
+    margin-bottom: 50px;
+  }
+}
+
+svg {
+  position: relative;
+  right: 105px;
+}
+
 .description {
   margin-top: 50px;
   text-align: center;

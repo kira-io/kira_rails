@@ -1,3 +1,11 @@
+<div class="row">
+  <div id="around_the_world" class="col-sm-12">
+    <h1>Diaries written in the last 24 hours</h1>
+    <button id="back_to_sign_up" class="btn btn-default">Back to sign up</button>
+  </div>
+</div>
+
+
 <style>
 path {
   stroke: white;
@@ -16,7 +24,7 @@ var projection = d3.geo.mercator()
     .scale(120)
     .rotate([-180,0]);
 
-var svg = d3.select("body").append("svg")
+var svg = d3.select(".container").append("svg")
     .attr("width", width)
     .attr("height", height);
 
