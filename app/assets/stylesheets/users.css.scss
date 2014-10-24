@@ -3,12 +3,16 @@
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
 #globe canvas {
-  margin-left: 135px;
+  text-align: center;
   &:hover {
     background-color: yellow;
     border-radius: 250px;
     cursor: zoom-in;
   }
+}
+
+#globe_placer {
+  text-align: center;
 }
 
 #around_the_world {

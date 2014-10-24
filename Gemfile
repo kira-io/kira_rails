@@ -23,7 +23,7 @@ gem 'bootstrap-sass', '~> 3.2.0'
 gem 'sass-rails', '>= 3.2'
 gem 'hirb'
 
-gem 'rails-footnotes', '>= 4.0.0', '<5'
+# gem 'rails-footnotes', '>= 4.0.0', '<5'
 
 # font-awesome  - default icons on the toolbar (479 icons)
 gem 'font-awesome-sass'
