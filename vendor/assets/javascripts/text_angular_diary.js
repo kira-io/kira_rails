@@ -81,7 +81,8 @@ myApp.factory('UsersFactory', function($http, socket){
     });
   }
 
-  factory.deletePosts = function(){
+  factory.deletePosts = function(callback){
+    console.log('hello');
     var d = new Date()
     var time = Math.floor(Date.parse(d)/60000)
     for(i in posts){
@@ -89,10 +90,10 @@ myApp.factory('UsersFactory', function($http, socket){
       if(time - created_at >= 1440){
         var post_id = posts[i].id
         posts.splice(i,1);
-
         socket.emit('client:limbo_room', {room_number: post_id})
       }
     }
+    callback(posts);
   }
 
   factory.getMessages = function(callback){
@@ -206,13 +207,13 @@ myApp.controller('PostsController', function($scope, UsersFactory, socket, $http
 
     console.log("PostsController $scope.posts", $scope.posts);
   });
-
+  
   setInterval(function(){
-    UsersFactory.deletePosts();
-
+    UsersFactory.deletePosts(function(data){
+      $scope.posts = data;
+    });
     $scope.$apply();
-
-  }, 60000);
+  }, 10000);
 
   $scope.giveJoy = function(post_id) {
     // console.log('client clicked on', post_id);
