@@ -4,6 +4,11 @@
 
 #globe canvas {
   margin-left: 135px;
+  &:hover {
+    background-color: yellow;
+    border-radius: 250px;
+    cursor: zoom-in;
+  }
 }
 
 #around_the_world {
