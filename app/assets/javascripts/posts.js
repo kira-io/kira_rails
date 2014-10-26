@@ -1,4 +1,4 @@
-var socket = io.connect("http://127.0.0.1:7777", {force_connection: true});
+var socket = io.connect("https://192.168.15.127:7777", {force_connection: true});
 
 var room_number = 0;
 var user_name = 'kira';
