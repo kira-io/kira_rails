@@ -13,6 +13,9 @@
 
 ActiveRecord::Schema.define(version: 20141023204145) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "entries", force: true do |t|
     t.string   "title"
     t.text     "content"
@@ -22,8 +25,8 @@ ActiveRecord::Schema.define(version: 20141023204145) do
     t.integer  "entry_location_id"
   end
 
-  add_index "entries", ["entry_location_id"], name: "index_entries_on_entry_location_id"
-  add_index "entries", ["user_id"], name: "index_entries_on_user_id"
+  add_index "entries", ["entry_location_id"], name: "index_entries_on_entry_location_id", using: :btree
+  add_index "entries", ["user_id"], name: "index_entries_on_user_id", using: :btree
 
   create_table "entry_locations", force: true do |t|
     t.float    "latitude"
@@ -41,8 +44,8 @@ ActiveRecord::Schema.define(version: 20141023204145) do
     t.datetime "updated_at"
   end
 
-  add_index "joy_counts", ["post_id"], name: "index_joy_counts_on_post_id"
-  add_index "joy_counts", ["user_id"], name: "index_joy_counts_on_user_id"
+  add_index "joy_counts", ["post_id"], name: "index_joy_counts_on_post_id", using: :btree
+  add_index "joy_counts", ["user_id"], name: "index_joy_counts_on_user_id", using: :btree
 
   create_table "locations", force: true do |t|
     t.float    "latitude"
@@ -62,8 +65,8 @@ ActiveRecord::Schema.define(version: 20141023204145) do
     t.string   "color",      default: "p_green"
   end
 
-  add_index "messages", ["post_id"], name: "index_messages_on_post_id"
-  add_index "messages", ["user_id"], name: "index_messages_on_user_id"
+  add_index "messages", ["post_id"], name: "index_messages_on_post_id", using: :btree
+  add_index "messages", ["user_id"], name: "index_messages_on_user_id", using: :btree
 
   create_table "posts", force: true do |t|
     t.string   "title"
@@ -77,8 +80,8 @@ ActiveRecord::Schema.define(version: 20141023204145) do
     t.integer  "location_id"
   end
 
-  add_index "posts", ["location_id"], name: "index_posts_on_location_id"
-  add_index "posts", ["user_id"], name: "index_posts_on_user_id"
+  add_index "posts", ["location_id"], name: "index_posts_on_location_id", using: :btree
+  add_index "posts", ["user_id"], name: "index_posts_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
     t.string   "alias"
