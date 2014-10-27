@@ -8,7 +8,7 @@ myApp.config([ "$httpProvider", function($httpProvider) {
 
 //  Writing AngularJS App with Socket.IO
 //  http://www.html5rocks.com/en/tutorials/frameworks/angular-websockets/
-myApp.factory('socket', function ($rootScope) {
+myApp.factory('socket', ['$rootScope', function ($rootScope) {
   return {
     on: function(eventName, callback) {
           socket.on(eventName, function() {
@@ -31,10 +31,10 @@ myApp.factory('socket', function ($rootScope) {
           });
         }
   };
-});
+}]);
 
 
-myApp.factory('UsersFactory', function($http, socket){
+myApp.factory('UsersFactory', ['$http', 'socket', function($http, socket){
   var entries = [];
   var posts = [];
   var factory = {};
@@ -109,9 +109,9 @@ myApp.factory('UsersFactory', function($http, socket){
     });
   }
   return factory;
-});
+}]);
 
-myApp.controller('UserController', function($scope, UsersFactory){
+myApp.controller('UserController', ['$scope', 'UsersFactory', function($scope, UsersFactory){
   var all_entries;
 
   UsersFactory.getEntries(function(data){
@@ -157,9 +157,9 @@ myApp.controller('UserController', function($scope, UsersFactory){
       }
     }
   }
-});
+}]);
 
-myApp.controller('PostsController', function($scope, UsersFactory, socket, $http){
+myApp.controller('PostsController', ['$scope', 'UsersFactory', 'socket' ,'$http', function($scope, UsersFactory, socket, $http){
   var all_posts;
 
   // initial connection when posts/index.html.erb is rendered
@@ -274,23 +274,23 @@ myApp.controller('PostsController', function($scope, UsersFactory, socket, $http
     }
   }
 
-});
+}]);
 
-myApp.controller('MessagesController', function($scope, UsersFactory){
+myApp.controller('MessagesController', ['$scope', 'UsersFactory', function($scope, UsersFactory){
   UsersFactory.getMessages(function(data){
     $scope.messages = data;
     console.log("UserController $scope.messages", $scope.messages);
   });
-});
+}]);
 
-myApp.controller('TextAngularController', function($scope, UsersFactory){
+myApp.controller('TextAngularController', ['$scope', 'UsersFactory', function($scope, UsersFactory){
   $scope.submit_diary = function(){
     console.log("hello from diary post");
     console.log("diary_entry.post", $scope.diary_entry.post);
   }
-});
+}]);
 
-myApp.config(function($provide){
+myApp.config(['$provide', function($provide){
   $provide.decorator('taOptions', ['taRegisterTool', '$delegate', function(taRegisterTool, taOptions){
     // $delegate is the taOptions we are decorating
     // register the tool with textAngular
@@ -315,4 +315,4 @@ myApp.config(function($provide){
 
     return taOptions;
   }]);
-});
+}]);
