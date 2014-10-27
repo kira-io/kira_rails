@@ -1,11 +1,14 @@
 var myApp = angular.module('myApp', ['textAngular', 'ngRoute', 'infinite-scroll']);
+
+// Add authentication token so angular can make calls to rails
 myApp.config([ "$httpProvider", function($httpProvider) {
       $httpProvider.defaults.headers.common['X-CSRF-Token'] = $('meta[name=csrf-token]').attr('content');
     }
 ]);
 
+//  Writing AngularJS App with Socket.IO
+//  http://www.html5rocks.com/en/tutorials/frameworks/angular-websockets/
 myApp.factory('socket', function ($rootScope) {
-
   return {
     on: function(eventName, callback) {
           socket.on(eventName, function() {
@@ -37,28 +40,28 @@ myApp.factory('UsersFactory', function($http, socket){
   var factory = {};
 
   factory.getEntries = function(callback){
-    console.log("MADE IT TO THE FACTORY.getEntries");
+    // Get entries and location JSON
     $http.get('/entries').success(function(data){
-      console.log('\n\n\ngetEntries() in factory = data\n\n\n: ', data);
-      
       for(var i=0; i < data.entries.length; i++) {
         for(var j=0; j < data.location.length; j++) {
+          // Combine into one object to display together in ng-repeat
           if(data.entries[i].entry_location_id == data.location[j].id) {
             data.entries[i].city = data.location[j].city;
             data.entries[i].country = data.location[j].country;
           }
         }
-      }       
+      }
       entries = data.entries;
       callback(entries);
     });
   }
 
   factory.getPosts = function(callback){
+    // Get posts, joycounts, users, and location JSON
     $http.get('/get_posts').success(function(data){
       console.log('data from get posts', data)
       posts = data.post;
-
+      // Combine joycounts and location to one post object for ng-repeat
       for(i=0; i < posts.length; i++){
         for(j=0; j < data.joy_count.length; j++){
           if(posts[i].id == data.joy_count[j].post_id){
@@ -66,7 +69,6 @@ myApp.factory('UsersFactory', function($http, socket){
           }
         }
       }
-
       for(var i=0; i < posts.length; i++) {
         for(var j=0; j < data.location.length; j++) {
           if(posts[i].location_id == data.location[j].id) {
@@ -74,21 +76,24 @@ myApp.factory('UsersFactory', function($http, socket){
             posts[i].country = data.location[j].country;
           }
         }
-      }  
-
-      console.log('posts', posts);
+      }
+      // Send over user to set current user on client side
       callback(posts, data.user);
     });
   }
 
+  // Check current time - post.created_at to see if it is greater than 24 hours
   factory.deletePosts = function(callback){
-    console.log('hello');
     var d = new Date()
+    // Turns current time into minutes since January 1st 1970
     var time = Math.floor(Date.parse(d)/60000)
     for(i in posts){
+      // Turns created_at into minutes since January 1st 1970
       var created_at = Math.floor(Date.parse(posts[i].created_at)/60000)
+      // 1440 minutes in a day
       if(time - created_at >= 1440){
         var post_id = posts[i].id
+        // If older than 24 hours, delete from posts and send room into limbo
         posts.splice(i,1);
         socket.emit('client:limbo_room', {room_number: post_id})
       }
@@ -96,6 +101,7 @@ myApp.factory('UsersFactory', function($http, socket){
     callback(posts);
   }
 
+  // Get current users's messages in JSON
   factory.getMessages = function(callback){
     $http.get('/get_messages').success(function(data){
       messages = data;
@@ -109,63 +115,57 @@ myApp.controller('UserController', function($scope, UsersFactory){
   var all_entries;
 
   UsersFactory.getEntries(function(data){
-    console.log('getEntries data', data);
     $scope.entries = [];
+    all_entries = data;
 
-    all_entries = data;  
-
-    console.log('originial all_entries', all_entries);
-
+    // Sorting entries to put most recent on top
     all_entries.sort(function(one,two){
       return one.id - two.id;
     });
 
     console.log('sorted all_entries', all_entries);
 
+    // Set length, default to 0
     var entry_array_create_length = 0;
 
+    // If less than 5 we push that many in, more than 5 than push 5 for initial load
     if(all_entries.length > 5){
       entry_array_create_length = 5;
     } else {
       entry_array_create_length = all_entries.length;
     }
-
     for(var i = 0; i < entry_array_create_length; i++){
       $scope.entries.push(all_entries[i]);
     }
-
-    console.log("UserController $scope.entries", $scope.entries);
   });
-
 
   // for infinite scroll
   $scope.loadMore = function(){
     if($scope.entries){
-      start = $scope.entries.length;
-      console.log("start # of entries:", start);
-      console.log("all_entries", all_entries);
-      console.log("$scope.entries before:", $scope.entries);
+      var start = $scope.entries.length;
+      // start + 1 to display last entry
       for(var i = start; i < start + 1; i++){
+        // Break loop at correct length to get last entry
         if($scope.entries.length == all_entries.length){
           break;
         }
+        // Don't display black dot undefined posts
         if(all_entries[i] == undefined) {
           break;
         }
         $scope.entries.push(all_entries[i]);
       }
-      console.log("$scope.entries after:", $scope.entries);
     }
   }
-
-
 });
 
 myApp.controller('PostsController', function($scope, UsersFactory, socket, $http){
   var all_posts;
 
+  // initial connection when posts/index.html.erb is rendered
   socket.emit('in_all_posts');
 
+  // change icon displayed when a new message is sent to user
   socket.on('server:message_sent_to', function(data){
     if ($scope.user_id == data.user_id) {
       var message_icon = document.getElementById('message_icon');
@@ -174,25 +174,25 @@ myApp.controller('PostsController', function($scope, UsersFactory, socket, $http
     }
   });
 
+  // data is posts & data2 is user id
   UsersFactory.getPosts(function(data, data2){
     console.log('getPosts data', data);
     $scope.user_id = data2;
     $scope.posts = [];
+    // ranking of posts for display order
     for (var i=0; i< data.length; i++) {
       var total = Math.floor((Date.parse(new Date()) - Date.parse(data[i].created_at)) / 3600000 + data[i].joys);
       data[i].rank = total;
       data[i].time_ago = Math.floor((Date.parse(new Date()) - Date.parse(data[i].created_at))/ 3600000);
     };
-    all_posts = data;  
+    all_posts = data;
 
-    console.log('originial all_posts', all_posts);
-
+    // sort by rank for infinite scroll display
     all_posts.sort(function(one,two){
       return two.rank - one.rank;
     });
 
-    console.log('sorted all_posts', all_posts);
-
+    // set length, default to 0
     var post_array_create_length = 0;
 
     if(all_posts.length > 5){
@@ -200,24 +200,22 @@ myApp.controller('PostsController', function($scope, UsersFactory, socket, $http
     } else {
       post_array_create_length = all_posts.length;
     }
-
     for(var i = 0; i < post_array_create_length; i++){
       $scope.posts.push(all_posts[i]);
     }
-
-    console.log("PostsController $scope.posts", $scope.posts);
   });
-  
+
+  // call deletePosts every minute
   setInterval(function(){
     UsersFactory.deletePosts(function(data){
+      // callback function to update $scope.posts with current data
       $scope.posts = data;
     });
+    // notify angular that $scope has changed with $apply()
     $scope.$apply();
   }, 10000);
 
   $scope.giveJoy = function(post_id) {
-    // console.log('client clicked on', post_id);
-
     $http.post('./update_post', {post: post_id}).success(function(data){
       if(data == 'success'){
         console.log('success posting joy', data)
