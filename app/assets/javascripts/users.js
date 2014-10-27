@@ -18,10 +18,4 @@ $(document).ready(function(){
     }
     return false;
   });
-  $(document).on('click', '#back_to_sign_in', function(){
-    window.location.href = '/';
-  })
-  $(document).on('click', '#go_to_sign_up', function(){
-    window.location.href = '/users/new';
-  })
 });
