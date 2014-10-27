@@ -15,3 +15,6 @@ Rails.application.config.assets.precompile += %w( textAngular-sanitize.min.js )
 Rails.application.config.assets.precompile += %w( textAngular.min.js )
 Rails.application.config.assets.precompile += %w( text_angular_diary.js )
 Rails.application.config.assets.precompile += %w( ng-infinite-scroll.min.js )
+
+# spinning globe
+Rails.application.config.assets.precompile += %w( topojson.v1.min.js )
