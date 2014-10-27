@@ -79,4 +79,8 @@ Rails.application.configure do
 
   # Do not dump schema after migrations.
   config.active_record.dump_schema_after_migration = false
+
+  # Prevent angular variables from getting minified
+  # http://robots.thoughtbot.com/avoid-angularjs-dependency-annotation-with-rails
+  config.assets.js_compressor = Uglifier.new(mangle: false)
 end
