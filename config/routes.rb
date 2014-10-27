@@ -9,8 +9,10 @@ Rails.application.routes.draw do
   # posts
   get "/get_posts" => "posts#get_posts"
   post "/update_post" => "posts#update_post"
+
   # messages
   get "/get_messages" => "messages#get_messages"
+
   # show world with posts
   get "/world" => "sessions#world"
   get "/location_json" => "posts#location_json"
