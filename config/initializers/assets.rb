@@ -18,3 +18,5 @@ Rails.application.config.assets.precompile += %w( ng-infinite-scroll.min.js )
 
 # spinning globe
 Rails.application.config.assets.precompile += %w( topojson.v1.min.js )
+# flat globe
+Rails.application.config.assets.precompile += %w( topojson.v0.min.js )
