@@ -11,20 +11,6 @@
   <!-- <a href="/signout"><span id="logout" class="glyphicon glyphicon-log-out"></span></a> -->
 <% end %>
 
-
-<div class='row'>
- 
-  <% if @errors 
-    @errors.each do |error| %>
-  <p> <%= error %></p>
-  <% end 
-  end%>
-<!--   <div id='timer' class='col-sm-6 col-sm-offset-4'>
-    <div id="countdown1" class="countdownHolder"></div>
-    <div id="created_at" data-created='<%= @post.created_at %>'><%= @post.created_at %></div>
-    <div id='count_down_message'><h3>You are now in limbo</h3></div>
-  </div> -->
-</div>
 <div id='post_test' class='row'>
   <div id='leave_chat' class='row'>
     <a class='leave_room_to_posts btn btn-default col-sm-3 pull-left' href=''><span style='color: silver' class='glyphicon glyphicon-chevron-left'></span> Leave Chat Room</a>
