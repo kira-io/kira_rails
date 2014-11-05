@@ -1,4 +1,4 @@
-var socket = io.connect("https://kiramean.herokuapp.com/socket.io/socket.io.js", {force_connection: true});
+var socket = io.connect("http://192.168.0.16:7777", {force_connection: true});
 
 var room_number = 0;
 var user_name = 'kira';
